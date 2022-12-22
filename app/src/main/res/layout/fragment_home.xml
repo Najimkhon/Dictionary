@@ -1,15 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HomeFragment"
+    android:background="@color/main_bg"
+    android:padding="4dp">
 
-    <!-- TODO: Update blank fragment layout -->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/search_background"
+        android:elevation="2dp"
+        app:iconifiedByDefault="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:paddingBottom="8dp"
+        android:layout_marginBottom="16dp"
+        app:queryHint="Search..."
+        android:paddingRight="32dp"/>
+
     <TextView
         android:id="@+id/tvTest"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Heeeeee" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello its me"
+        app:layout_constraintLeft_toRightOf="@+id/imageView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        />
+    <TextView
+        android:id="@+id/tvHello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hi, John Doe"
+        android:textColor="@color/dark_grey"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/imageView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@id/searchView"
+        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintHorizontal_bias="0"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What are you looking for?"
+        android:textColor="@color/light_grey"
+        android:textSize="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintLeft_toRightOf="@+id/imageView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHello"
+        app:layout_constraintHorizontal_bias="0"
+        />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:src="@drawable/profileimage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.12"/>
+    <TextView
+        android:id="@+id/recentWords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Words to repeat"
+        android:textColor="@color/dark_grey"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_margin="22dp"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+
+        />
+    <TextView
+        android:elevation="4dp"
+        android:id="@+id/cardview1"
+        android:layout_margin="16dp"
+        android:layout_width="170dp"
+        android:layout_height="200dp"
+        android:background="@drawable/card_background"
+        app:layout_constraintTop_toBottomOf="@id/recentWords"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+    <TextView
+        android:elevation="4dp"
+        android:layout_margin="16dp"
+        android:layout_width="170dp"
+        android:layout_height="200dp"
+        android:background="@drawable/card_background"
+        app:layout_constraintTop_toBottomOf="@id/recentWords"
+        app:layout_constraintLeft_toRightOf="@id/cardview1"
+        />
+    <TextView
+        android:id="@+id/tvSeeAllwords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="See recently added words"
+        android:textColor="@color/dark_grey"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_margin="22dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardview1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        />
+    <TextView
+        android:id="@+id/btnSeeAll"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:background="@drawable/round_button_background"
+        android:textColor="@color/dark_grey"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardview1"
+        app:layout_constraintLeft_toRightOf="@id/tvSeeAllwords"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
