@@ -1,4 +1,4 @@
-package com.hfad.dictionary
+package com.hfad.dictionary.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.hfad.dictionary.ViewModel.ViewModel
+import com.hfad.dictionary.ViewModelFactory
 import com.hfad.dictionary.databinding.FragmentHomeBinding
 import com.hfad.dictionary.repository.Repository
 

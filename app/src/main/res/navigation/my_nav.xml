@@ -7,12 +7,16 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.hfad.dictionary.HomeFragment"
+        android:name="com.hfad.dictionary.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_wordFragment"
+            app:destination="@id/wordFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/homeFragment2"
-        android:name="com.hfad.dictionary.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/wordFragment"
+        android:name="com.hfad.dictionary.WordFragment"
+        android:label="fragment_word"
+        tools:layout="@layout/fragment_word" />
 </navigation>
