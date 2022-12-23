@@ -1,6 +1,5 @@
 package com.hfad.dictionary.api
 
-import com.hfad.dictionary.DictionaryResponseInterface
 import com.hfad.dictionary.utils.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

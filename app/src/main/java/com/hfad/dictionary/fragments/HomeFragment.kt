@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.hfad.dictionary.R
 import com.hfad.dictionary.ViewModel.ViewModel
 import com.hfad.dictionary.ViewModelFactory
 import com.hfad.dictionary.databinding.FragmentHomeBinding
@@ -39,6 +41,9 @@ class HomeFragment : Fragment() {
             }else{
                 Log.d("Response", it.errorBody().toString())
             }
+        }
+        binding.imageView.setOnClickListener{
+            findNavController().navigate(R.id.action_homeFragment_to_wordFragment)
         }
 
 

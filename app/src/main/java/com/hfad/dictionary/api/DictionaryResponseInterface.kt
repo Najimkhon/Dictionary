@@ -1,4 +1,4 @@
-package com.hfad.dictionary
+package com.hfad.dictionary.api
 
 import com.hfad.dictionary.Models.DictionaryResponse
 import com.hfad.dictionary.utils.Constants

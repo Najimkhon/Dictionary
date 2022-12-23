@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/wordFragment"
-        android:name="com.hfad.dictionary.WordFragment"
+        android:name="com.hfad.dictionary.fragments.WordFragment"
         android:label="fragment_word"
         tools:layout="@layout/fragment_word" />
 </navigation>
