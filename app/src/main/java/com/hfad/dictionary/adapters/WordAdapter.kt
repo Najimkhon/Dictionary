@@ -11,7 +11,7 @@ import com.hfad.dictionary.models.api.SearchResponse
 class WordAdapter() : RecyclerView.Adapter<WordViewHolder>() {
 
     var definitionsList = emptyList<Definition>()
-
+    var examplesList = emptyList<String>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
         return WordViewHolder(
             DefinitionItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -22,7 +22,7 @@ class WordAdapter() : RecyclerView.Adapter<WordViewHolder>() {
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         holder.definitionItemLayoutBinding.tvDefinition.text = definitionsList[position].definition
         holder.definitionItemLayoutBinding.tvMeaning.text = "Meaning ${position+1}"
-
+        holder.definitionItemLayoutBinding.tvExample.text = examplesList[position]
 
 
     }
@@ -33,6 +33,10 @@ class WordAdapter() : RecyclerView.Adapter<WordViewHolder>() {
 
     fun setData(defintionsList: List<Definition>){
         this.definitionsList = defintionsList
+        notifyDataSetChanged()
+    }
+    fun setExampleData(examplesList: List<String>){
+        this.examplesList = examplesList
         notifyDataSetChanged()
     }
 

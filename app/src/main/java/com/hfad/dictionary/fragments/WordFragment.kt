@@ -47,7 +47,7 @@ class WordFragment : Fragment() {
         viewModel.getExamples("example")
         viewModel.myExamplesResponse.observe(viewLifecycleOwner){
             if (it.isSuccessful) {
-
+                adapter.setExampleData(it.body()?.examples!!)
 
             } else {
                 Log.d("Response", it.errorBody().toString())
