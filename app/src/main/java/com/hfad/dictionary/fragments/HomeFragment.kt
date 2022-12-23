@@ -19,7 +19,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: ViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,19 +29,6 @@ class HomeFragment : Fragment() {
         val view = binding.root
 
 
-
-        val repository = Repository()
-        val viewModelFactory = ViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModel::class.java)
-        viewModel.getData("example")
-        viewModel.myResponse.observe(viewLifecycleOwner) {
-            if (it.isSuccessful){
-            Log.d("Response", it.body()?.id!!)
-                binding.tvTest.text = it.body()?.id!!
-            }else{
-                Log.d("Response", it.errorBody().toString())
-            }
-        }
         binding.imageView.setOnClickListener{
             findNavController().navigate(R.id.action_homeFragment_to_wordFragment)
         }

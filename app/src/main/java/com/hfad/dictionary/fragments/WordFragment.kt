@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.hfad.dictionary.R
 import com.hfad.dictionary.ViewModel.ViewModel
 import com.hfad.dictionary.ViewModelFactory
 import com.hfad.dictionary.databinding.FragmentWordBinding
@@ -18,8 +17,7 @@ class WordFragment : Fragment() {
     private var _binding: FragmentWordBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: ViewModel
-    private var definitionsList : ArrayList<String> = arrayListOf()
-    private var examplesList : ArrayList<String> = arrayListOf()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,34 +31,14 @@ class WordFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModel::class.java)
         viewModel.getData("example")
         viewModel.myResponse.observe(viewLifecycleOwner) {
-            if (it.isSuccessful){
-                Log.d("Response", it.body()?.id!!)
-                binding.tvWord.text = it.body()?.id!!
-                it.body()?.results?.forEach{
-                    it.lexicalEntries.forEach{
-                        it.entries.forEach{
-                            it.senses.forEach{
-                                it.definitions.forEach{
-                                    definitionsList.add(it)
-                                }
-                            }
-                        }
-                    }
+            if (it.isSuccessful) {
+               binding.tvWord.text = it.body()?.word.toString()
+                var definitons = ""
+                it.body()?.definitions?.forEach {
+                    definitons += it.definition
                 }
-                it.body()?.results?.forEach{
-                    it.lexicalEntries.forEach{
-                        it.entries.forEach{
-                            it.senses.forEach{
-                                it.examples.forEach{
-                                    examplesList.add(it.text)
-                                }
-                            }
-                        }
-                    }
-                }
-                binding.tvExample.text = examplesList[0]
-                binding.tvDefinition.text = definitionsList[0]
-            }else{
+                binding.tvDefinition.text = definitons
+            } else {
                 Log.d("Response", it.errorBody().toString())
             }
         }

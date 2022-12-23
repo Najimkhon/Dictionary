@@ -1,7 +1,12 @@
 package com.hfad.dictionary.utils
 
 object Constants {
-    const val BASE_URL = "https://od-api.oxforddictionaries.com/api/v2/entries/"
-    const val APP_ID = "614e2023"
-    const val APP_KEY = "873a6312cdee3721cbcd8973dd338f09"
+    const val BASE_URL = "https://wordsapiv1.p.rapidapi.com/"
+    const val EXAMPLE_REQUEST = "examples"
+    const val DEFINITION_REQUEST = "definitions"
+    const val KEY_HEADER_TITLE = "X-RapidAPI-Key"
+    const val HOST_HEADER_TITLE = "X-RapidAPI-Host"
+    const val API_KEY = "5a81a2a606msh32cf75ed9ec0b89p166310jsn6f7aab29f976"
+    const val API_HOST = "wordsapiv1.p.rapidapi.com"
+
 }
