@@ -42,6 +42,15 @@ class WordFragment : Fragment() {
                 Log.d("Response", it.errorBody().toString())
             }
         }
+        viewModel.getExamples("example")
+        viewModel.myExamplesResponse.observe(viewLifecycleOwner){
+            if (it.isSuccessful) {
+                binding.tvExample.text = it?.body()?.examples?.get(0)
+
+            } else {
+                Log.d("Response", it.errorBody().toString())
+            }
+        }
 
 
 
