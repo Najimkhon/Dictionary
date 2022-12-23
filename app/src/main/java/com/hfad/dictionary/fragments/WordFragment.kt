@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.hfad.dictionary.ViewModel.ViewModel
 import com.hfad.dictionary.ViewModelFactory
+import com.hfad.dictionary.adapters.WordAdapter
 import com.hfad.dictionary.databinding.FragmentWordBinding
 import com.hfad.dictionary.repository.Repository
 
@@ -17,6 +19,7 @@ class WordFragment : Fragment() {
     private var _binding: FragmentWordBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: ViewModel
+    private val adapter: WordAdapter by lazy { WordAdapter() }
 
 
     override fun onCreateView(
@@ -32,12 +35,11 @@ class WordFragment : Fragment() {
         viewModel.getData("example")
         viewModel.myResponse.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
-               binding.tvWord.text = it.body()?.word.toString()
-                var definitons = ""
-                it.body()?.definitions?.forEach {
-                    definitons += it.definition
-                }
-                binding.tvDefinition.text = definitons
+
+
+                adapter.setData(it.body()?.definitions!!)
+
+
             } else {
                 Log.d("Response", it.errorBody().toString())
             }
@@ -45,7 +47,7 @@ class WordFragment : Fragment() {
         viewModel.getExamples("example")
         viewModel.myExamplesResponse.observe(viewLifecycleOwner){
             if (it.isSuccessful) {
-                binding.tvExample.text = it?.body()?.examples?.get(0)
+
 
             } else {
                 Log.d("Response", it.errorBody().toString())
@@ -53,10 +55,16 @@ class WordFragment : Fragment() {
         }
 
 
-
+        setupRecyclerView()
 
 
         return view
+    }
+
+    private fun setupRecyclerView() {
+        val recyclerView = binding.definitionsRecyclerView
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
     }
 
     override fun onDestroyView() {
