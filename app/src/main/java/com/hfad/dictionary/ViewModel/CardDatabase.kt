@@ -11,7 +11,7 @@ import com.hfad.dictionary.models.card.Card
 @Database(entities = [Card::class], version = 1, exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class CardDatabase:RoomDatabase() {
-    abstract fun toDoDao():CardDAO
+    abstract fun cardDao():CardDAO
 
     companion object{
         @Volatile
