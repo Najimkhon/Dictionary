@@ -7,12 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hfad.dictionary.ViewModel.ViewModel
 import com.hfad.dictionary.ViewModelFactory
 import com.hfad.dictionary.adapters.WordAdapter
 import com.hfad.dictionary.databinding.FragmentWordBinding
 import com.hfad.dictionary.repository.Repository
+import jp.wasabeef.recyclerview.animators.LandingAnimator
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 
 class WordFragment : Fragment() {
@@ -20,6 +23,7 @@ class WordFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: ViewModel
     private val adapter: WordAdapter by lazy { WordAdapter() }
+    val args by navArgs<WordFragmentArgs>()
 
 
     override fun onCreateView(
@@ -32,20 +36,16 @@ class WordFragment : Fragment() {
         val repository = Repository()
         val viewModelFactory = ViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModel::class.java)
-        viewModel.getData("example")
+        viewModel.getData(args.searchWord)
         viewModel.myResponse.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
-
-
                 adapter.setData(it.body()?.definitions!!)
-
-
             } else {
                 Log.d("Response", it.errorBody().toString())
             }
         }
         viewModel.getExamples("example")
-        viewModel.myExamplesResponse.observe(viewLifecycleOwner){
+        viewModel.myExamplesResponse.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
                 adapter.setExampleData(it.body()?.examples!!)
 
@@ -53,11 +53,7 @@ class WordFragment : Fragment() {
                 Log.d("Response", it.errorBody().toString())
             }
         }
-
-
         setupRecyclerView()
-
-
         return view
     }
 
@@ -65,6 +61,8 @@ class WordFragment : Fragment() {
         val recyclerView = binding.definitionsRecyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        recyclerView.itemAnimator = LandingAnimator().apply { addDuration = 300 }
+
     }
 
     override fun onDestroyView() {

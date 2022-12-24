@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.wordFragment.HomeFragment"
+    tools:context=".fragments.HomeFragment"
     android:background="@color/main_bg"
     android:padding="4dp">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="0dp"
-        android:layout_height="72dp"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/search_background"
@@ -26,15 +26,6 @@
         app:queryHint="Search..."
         android:paddingRight="32dp"/>
 
-    <TextView
-        android:id="@+id/tvTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello its me"
-        app:layout_constraintLeft_toRightOf="@+id/imageView"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        />
     <TextView
         android:id="@+id/tvHello"
         android:layout_width="wrap_content"
@@ -51,6 +42,7 @@
         app:layout_constraintHorizontal_bias="0"
         />
     <TextView
+        android:id="@+id/tvLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="What are you looking for?"

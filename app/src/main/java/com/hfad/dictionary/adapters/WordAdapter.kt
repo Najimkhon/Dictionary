@@ -16,31 +16,35 @@ class WordAdapter() : RecyclerView.Adapter<WordViewHolder>() {
         return WordViewHolder(
             DefinitionItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
-
     }
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         holder.definitionItemLayoutBinding.tvDefinition.text = definitionsList[position].definition
-        holder.definitionItemLayoutBinding.tvMeaning.text = "Meaning ${position+1}"
-        holder.definitionItemLayoutBinding.tvExample.text = examplesList[position]
+        if (examplesList.isNotEmpty()) {
+            holder.definitionItemLayoutBinding.tvMeaning.text = "Meaning ${position + 1}"
+            if (examplesList.size == definitionsList.size) {
+                holder.definitionItemLayoutBinding.tvExample.text = examplesList[position]
+            }else{
 
-
+            }
+        }
     }
 
     override fun getItemCount(): Int {
         return definitionsList.size
     }
 
-    fun setData(defintionsList: List<Definition>){
+    fun setData(defintionsList: List<Definition>) {
         this.definitionsList = defintionsList
         notifyDataSetChanged()
     }
-    fun setExampleData(examplesList: List<String>){
+
+    fun setExampleData(examplesList: List<String>) {
         this.examplesList = examplesList
         notifyDataSetChanged()
     }
 
-    inner class WordViewHolder(val definitionItemLayoutBinding: DefinitionItemLayoutBinding)
-        :RecyclerView.ViewHolder(definitionItemLayoutBinding.root)
+    inner class WordViewHolder(val definitionItemLayoutBinding: DefinitionItemLayoutBinding) :
+        RecyclerView.ViewHolder(definitionItemLayoutBinding.root)
 
 }

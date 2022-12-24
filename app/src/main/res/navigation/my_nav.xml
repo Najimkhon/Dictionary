@@ -18,5 +18,9 @@
         android:id="@+id/wordFragment"
         android:name="com.hfad.dictionary.fragments.WordFragment"
         android:label="fragment_word"
-        tools:layout="@layout/fragment_word" />
+        tools:layout="@layout/fragment_word" >
+        <argument
+            android:name="searchWord"
+            app:argType="string" />
+    </fragment>
 </navigation>
