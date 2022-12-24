@@ -16,7 +16,7 @@ class ViewModel(private val repository: Repository, application: Application):An
     val myResponse: MutableLiveData<Response<SearchResponse>> = MutableLiveData()
     val myExamplesResponse: MutableLiveData<Response<ExamplesResponse>> = MutableLiveData()
 
-    private val cardDao = CardDatabase.getDatabase(
+    val cardDao = CardDatabase.getDatabase(
         application
     ).cardDao()
     private val MyRepository : Repository
@@ -27,10 +27,10 @@ class ViewModel(private val repository: Repository, application: Application):An
 
     init {
         MyRepository = Repository(cardDao)
-        getAllData = repository.getAllData
-        sortByLearned = repository.sortByLearned
-        sortByNew = repository.sortByNew
-        sortByRepeat = repository.sortByRepeat
+        getAllData = MyRepository.getAllData
+        sortByLearned = MyRepository.sortByLearned
+        sortByNew = MyRepository.sortByNew
+        sortByRepeat = MyRepository.sortByRepeat
     }
 
     fun getData(word:String){
@@ -52,28 +52,28 @@ class ViewModel(private val repository: Repository, application: Application):An
     //room
     fun insertCard(card: Card){
         viewModelScope.launch(Dispatchers.IO) {
-            repository.insertCard(card)
+            MyRepository.insertCard(card)
         }
     }
 
     fun updateCard(card: Card){
         viewModelScope.launch(Dispatchers.IO){
-            repository.updateCard(card)
+            MyRepository.updateCard(card)
         }
     }
 
     fun deleteCard(card: Card){
         viewModelScope.launch(Dispatchers.IO){
-            repository.deleteCard(card)
+            MyRepository.deleteCard(card)
         }
     }
     fun deleteAll(){
         viewModelScope.launch(Dispatchers.IO){
-            repository.deleteAll()
+            MyRepository.deleteAll()
         }
     }
 
     fun searchThroughDatabase(query: String):LiveData<List<Card>>{
-        return repository.searchThroughDatabase(query)
+        return MyRepository.searchThroughDatabase(query)
     }
 }

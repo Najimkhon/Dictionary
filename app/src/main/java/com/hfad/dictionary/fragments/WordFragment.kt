@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +25,7 @@ class WordFragment : Fragment() {
     private lateinit var viewModel: ViewModel
     private val adapter: WordAdapter by lazy { WordAdapter() }
     val args by navArgs<WordFragmentArgs>()
+    private val mViewModel: ViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -33,8 +35,9 @@ class WordFragment : Fragment() {
         _binding = FragmentWordBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        val repository = Repository()
-        val viewModelFactory = ViewModelFactory(repository)
+
+        val repository = Repository(mViewModel.cardDao)
+        val viewModelFactory = ViewModelFactory(repository, requireActivity().application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModel::class.java)
         viewModel.getData(args.searchWord)
         viewModel.myResponse.observe(viewLifecycleOwner) {

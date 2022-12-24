@@ -1,20 +1,11 @@
 package com.hfad.dictionary.repository
 
-import androidx.lifecycle.LiveData
-import com.hfad.dictionary.ViewModel.CardDAO
 import com.hfad.dictionary.api.RetrofitInstance
 import com.hfad.dictionary.models.api.ExamplesResponse
 import com.hfad.dictionary.models.api.SearchResponse
-import com.hfad.dictionary.models.card.Card
 import retrofit2.Response
 
-class Repository(private val cardDao: CardDAO) {
-    val getAllData: LiveData<List<Card>> = cardDao.getAllData()
-    val sortByLearned: LiveData<List<Card>> = cardDao.sortByLowLearned()
-    val sortByNew: LiveData<List<Card>> = cardDao.sortByNewStatus()
-    val sortByRepeat: LiveData<List<Card>> = cardDao.sortByRepeat()
-
-    //Api
+class Repository {
     suspend fun getDefinition(word: String):Response<SearchResponse> {
         return RetrofitInstance.api.getDefinition(word)
     }
@@ -22,6 +13,7 @@ class Repository(private val cardDao: CardDAO) {
     suspend fun getExamples(word: String):Response<ExamplesResponse> {
         return RetrofitInstance.api.getExamples(word)
     }
+<<<<<<< HEAD
 
     //Room
     suspend fun insertCard(card: Card){
@@ -42,4 +34,6 @@ class Repository(private val cardDao: CardDAO) {
     fun searchThroughDatabase(query: String):LiveData<List<Card>>{
         return cardDao.searchThroughDatabase(query)
     }
+=======
+>>>>>>> parent of 0f4ac88 (add room to repository)
 }
