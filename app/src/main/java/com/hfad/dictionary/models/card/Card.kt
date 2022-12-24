@@ -11,7 +11,7 @@ data class Card (
     @PrimaryKey(autoGenerate = true)
     val id:Int,
     val word:String,
-    val priority: Status,
+    val status: Status,
     val definition:String,
     val example:String
         ):Parcelable
