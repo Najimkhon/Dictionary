@@ -13,27 +13,5 @@ class Repository {
     suspend fun getExamples(word: String):Response<ExamplesResponse> {
         return RetrofitInstance.api.getExamples(word)
     }
-<<<<<<< HEAD
 
-    //Room
-    suspend fun insertCard(card: Card){
-        cardDao.insertCard(card)
-    }
-    suspend fun updateCard(card: Card){
-        cardDao.updateCard(card)
-    }
-
-    suspend fun deleteCard(card: Card){
-        cardDao.deleteCard(card)
-    }
-
-    suspend fun deleteAll(){
-        cardDao.deleteAll()
-    }
-
-    fun searchThroughDatabase(query: String):LiveData<List<Card>>{
-        return cardDao.searchThroughDatabase(query)
-    }
-=======
->>>>>>> parent of 0f4ac88 (add room to repository)
 }

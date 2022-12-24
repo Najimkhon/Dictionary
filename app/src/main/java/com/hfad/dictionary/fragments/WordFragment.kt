@@ -36,7 +36,7 @@ class WordFragment : Fragment() {
         val view = binding.root
 
 
-        val repository = Repository(mViewModel.cardDao)
+        val repository = Repository()
         val viewModelFactory = ViewModelFactory(repository, requireActivity().application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModel::class.java)
         viewModel.getData(args.searchWord)
