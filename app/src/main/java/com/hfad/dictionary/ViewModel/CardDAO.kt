@@ -3,7 +3,6 @@ package com.hfad.dictionary.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.hfad.dictionary.models.card.Card
-import com.hfad.letsdoit.data.models.ToDoData
 
 @Dao
 interface CardDAO {
