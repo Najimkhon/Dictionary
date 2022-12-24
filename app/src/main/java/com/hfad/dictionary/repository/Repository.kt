@@ -24,15 +24,15 @@ class Repository(private val cardDao: CardDAO) {
     }
 
     //Room
-    suspend fun insertData(card: Card){
-        cardDao.insertData(card)
+    suspend fun insertCard(card: Card){
+        cardDao.insertCard(card)
     }
-    suspend fun updateItem(card: Card){
-        cardDao.updateItem(card)
+    suspend fun updateCard(card: Card){
+        cardDao.updateCard(card)
     }
 
-    suspend fun deleteItem(card: Card){
-        cardDao.deleteItem(card)
+    suspend fun deleteCard(card: Card){
+        cardDao.deleteCard(card)
     }
 
     suspend fun deleteAll(){

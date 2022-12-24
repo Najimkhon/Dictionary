@@ -10,13 +10,13 @@ interface CardDAO {
     fun getAllData():LiveData<List<Card>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertData(toDoData: Card)
+    suspend fun insertCard(toDoData: Card)
 
     @Update
-    suspend fun updateItem(toDoData: Card)
+    suspend fun updateCard(toDoData: Card)
 
     @Delete
-    suspend fun deleteItem(toDoData: Card)
+    suspend fun deleteCard(toDoData: Card)
 
     @Query("DELETE FROM card_table")
     suspend fun deleteAll()
