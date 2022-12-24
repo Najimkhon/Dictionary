@@ -65,7 +65,6 @@ class WordFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.itemAnimator = LandingAnimator().apply { addDuration = 300 }
-
     }
 
     override fun onDestroyView() {
