@@ -14,9 +14,10 @@ import com.hfad.dictionary.ViewModel.ViewModel
 import com.hfad.dictionary.ViewModelFactory
 import com.hfad.dictionary.adapters.WordAdapter
 import com.hfad.dictionary.databinding.FragmentWordBinding
+import com.hfad.dictionary.models.api.Definition
 import com.hfad.dictionary.repository.Repository
 import jp.wasabeef.recyclerview.animators.LandingAnimator
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
+
 
 
 class WordFragment : Fragment() {
@@ -26,6 +27,8 @@ class WordFragment : Fragment() {
     private val adapter: WordAdapter by lazy { WordAdapter() }
     val args by navArgs<WordFragmentArgs>()
     private val mViewModel: ViewModel by viewModels()
+    var definitions = emptyList<Definition>()
+    var examples = mutableListOf<String>()
 
 
     override fun onCreateView(
@@ -35,23 +38,23 @@ class WordFragment : Fragment() {
         _binding = FragmentWordBinding.inflate(inflater, container, false)
         val view = binding.root
 
-
         val repository = Repository()
         val viewModelFactory = ViewModelFactory(repository, requireActivity().application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModel::class.java)
         viewModel.getData(args.searchWord)
         viewModel.myResponse.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
+                definitions = it.body()?.definitions!!
                 adapter.setData(it.body()?.definitions!!)
             } else {
                 Log.d("Response", it.errorBody().toString())
             }
         }
-        viewModel.getExamples("example")
+        viewModel.getExamples(args.searchWord)
         viewModel.myExamplesResponse.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
+                examples = (it.body()?.examples as MutableList<String>?)!!
                 adapter.setExampleData(it.body()?.examples!!)
-
             } else {
                 Log.d("Response", it.errorBody().toString())
             }
@@ -65,7 +68,11 @@ class WordFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.itemAnimator = LandingAnimator().apply { addDuration = 300 }
+        adapter.setWordData(args.searchWord)
     }
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

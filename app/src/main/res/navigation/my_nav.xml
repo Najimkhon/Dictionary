@@ -37,5 +37,8 @@
         <action
             android:id="@+id/action_addFragment_to_wordFragment"
             app:destination="@id/wordFragment" />
+        <argument
+            android:name="currentWord"
+            app:argType="com.hfad.dictionary.models.card.Card" />
     </fragment>
 </navigation>

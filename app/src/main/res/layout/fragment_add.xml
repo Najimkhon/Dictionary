@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    android:layout_margin="8dp"
     tools:context=".fragments.AddFragment"
-    android:background="@drawable/definition_background">
+   >
 
 
     <EditText
@@ -17,7 +16,7 @@
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
         android:hint="Word"
-        android:background="@android:color/transparent"
+        android:background="@drawable/definition_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +29,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="8dp"
         android:entries = "@array/Statuses"
-        android:background="@android:color/transparent"
+        android:background="@drawable/definition_background"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +49,7 @@
         android:paddingRight="16dp"
         android:ems="10"
         android:hint="Definition"
-        android:background="@android:color/transparent"
+        android:background="@drawable/definition_background"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toTopOf="@id/etExample"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +68,7 @@
         android:paddingRight="16dp"
         android:ems="10"
         android:hint="Example"
-        android:background="@android:color/transparent"
+        android:background="@drawable/definition_background"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
