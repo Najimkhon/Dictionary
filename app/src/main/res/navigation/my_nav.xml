@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_wordFragment"
             app:destination="@id/wordFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_listFragment"
+            app:destination="@id/listFragment" />
     </fragment>
     <fragment
         android:id="@+id/wordFragment"
@@ -40,5 +43,14 @@
         <argument
             android:name="currentWord"
             app:argType="com.hfad.dictionary.models.card.Card" />
+    </fragment>
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.hfad.dictionary.fragments.ListFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

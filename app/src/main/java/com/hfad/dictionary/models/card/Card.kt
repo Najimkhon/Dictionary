@@ -14,6 +14,6 @@ data class Card (
     val status: Status,
     val partsOfSpeech: String,
     val definition:String,
-    val example:String
+    val example:String=""
         ):Parcelable
 

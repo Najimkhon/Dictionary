@@ -26,7 +26,6 @@ class WordFragment : Fragment() {
     private lateinit var viewModel: ViewModel
     private val adapter: WordAdapter by lazy { WordAdapter() }
     val args by navArgs<WordFragmentArgs>()
-    private val mViewModel: ViewModel by viewModels()
     var definitions = emptyList<Definition>()
     var examples = mutableListOf<String>()
 

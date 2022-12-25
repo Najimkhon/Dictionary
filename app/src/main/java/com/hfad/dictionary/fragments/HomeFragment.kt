@@ -31,6 +31,9 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.imageView.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_wordFragment)
         }
+        binding.btnSeeAll.setOnClickListener{
+            findNavController().navigate(R.id.action_homeFragment_to_listFragment)
+        }
 
 
         return view
