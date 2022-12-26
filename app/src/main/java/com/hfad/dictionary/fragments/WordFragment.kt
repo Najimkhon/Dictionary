@@ -45,6 +45,7 @@ class WordFragment : Fragment() {
             if (it.isSuccessful) {
                 definitions = it.body()?.definitions!!
                 adapter.setData(it.body()?.definitions!!)
+                adapter.setWordData(args.searchWord)
             } else {
                 Log.d("Response", it.errorBody().toString())
             }
@@ -67,7 +68,6 @@ class WordFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.itemAnimator = LandingAnimator().apply { addDuration = 300 }
-        adapter.setWordData(args.searchWord)
     }
 
 
