@@ -1,7 +1,9 @@
 package com.hfad.dictionary.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.activity.addCallback
 import androidx.appcompat.widget.SearchView
@@ -27,7 +29,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
     private val adapter: ListAdapter by lazy { ListAdapter() }
-    private val mViewModel: ViewModel by viewModels(){
+    private val mViewModel: ViewModel by viewModels() {
         ViewModelFactory(
             Repository(),
             requireActivity().application
@@ -41,7 +43,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         _binding = FragmentListBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        mViewModel.getAllData.observe(viewLifecycleOwner){
+        mViewModel.getAllData.observe(viewLifecycleOwner) {
             adapter.setCardData(it)
         }
         setupRecyclerView()
@@ -57,13 +59,14 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         val recyclerView = binding.rvCardList
         recyclerView.adapter = adapter
         swipeToDelete(recyclerView)
-        recyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+        recyclerView.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.itemAnimator = SlideInUpAnimator().apply { addDuration = 300 }
 
     }
 
-    private fun swipeToDelete(recyclerView: RecyclerView){
-        val swipeToDeleteCallback = object : SwipeToDelete(){
+    private fun swipeToDelete(recyclerView: RecyclerView) {
+        val swipeToDeleteCallback = object : SwipeToDelete() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val itemToDelete = adapter.mCardList[viewHolder.adapterPosition]
                 mViewModel.deleteCard(itemToDelete)
@@ -83,18 +86,26 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         searchView?.isSubmitButtonEnabled = true
         searchView?.setOnQueryTextListener(this)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.deleteAll -> deleteAll()
+            R.id.statusNew -> mViewModel.sortByNew.observe(this) { adapter.setCardData(it) }
+            R.id.statusRepeat -> mViewModel.sortByRepeat.observe(this) { adapter.setCardData(it) }
+            R.id.statusLearned -> mViewModel.sortByLearned.observe(this) { adapter.setCardData(it) }
+        }
+        return super.onOptionsItemSelected(item)
 
         return super.onOptionsItemSelected(item)
     }
 
-    private fun restoreDeletedData(view: View, deletedItem: Card, position: Int){
+    private fun restoreDeletedData(view: View, deletedItem: Card, position: Int) {
         val snackbar = Snackbar.make(
             view,
             "Deleted '${deletedItem.word}'",
             Snackbar.LENGTH_LONG
         )
-        snackbar.setAction("Undo"){
+        snackbar.setAction("Undo") {
             mViewModel.insertData(deletedItem)
             adapter.notifyItemChanged(position)
         }
@@ -102,22 +113,35 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        if (query != null){
+        if (query != null) {
             searchDatabase(query)
         }
         return true
     }
 
     override fun onQueryTextChange(query: String?): Boolean {
-        if (query != null){
+        if (query != null) {
             searchDatabase(query)
         }
         return true
     }
+
+    private fun deleteAll() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _, _ ->
+            mViewModel.deleteAll()
+            Toast.makeText(requireContext(), "All Records are Removed", Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton("No") { _, _ -> }
+        builder.setTitle("Delete All Records?")
+        builder.setMessage("Are you sure you want to delete all records?")
+        builder.create().show()
+    }
+
     private fun searchDatabase(query: String?) {
         var searchQuery = "%$query%"
 
-        mViewModel.searchThroughDatabase(searchQuery).observe(this, Observer { list->
+        mViewModel.searchThroughDatabase(searchQuery).observe(this, Observer { list ->
             list?.let {
                 adapter.setCardData(it)
             }
