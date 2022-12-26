@@ -14,6 +14,7 @@ import com.hfad.dictionary.models.card.Status
 class HomeAdapter(): RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     var mCardList = emptyList<Card>()
+    var mCounter = 0
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
@@ -55,6 +56,7 @@ class HomeAdapter(): RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
         val cardDiffUtil = CardDiffUtil(mCardList, cardList)
         val cardDiffResult = DiffUtil.calculateDiff(cardDiffUtil)
         this.mCardList = cardList
+        this.mCounter = cardList.size
         cardDiffResult.dispatchUpdatesTo(this)
     }
 

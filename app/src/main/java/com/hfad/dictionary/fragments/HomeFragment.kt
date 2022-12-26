@@ -32,6 +32,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,6 +53,8 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         mViewModel.getAllData.observe(viewLifecycleOwner){
             adapter.setCardData(it)
         }
+
+        binding.tvLearntWords.text = adapter.mCounter.toString()
         setupRecyclerView()
 
         return view
