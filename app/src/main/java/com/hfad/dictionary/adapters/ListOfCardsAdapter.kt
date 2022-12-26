@@ -21,6 +21,7 @@ open class ListOfCardsAdapter():RecyclerView.Adapter<ListOfCardsAdapter.ListView
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.cardItemLayoutBinding.tvWord.text = mCardList[position].word
         holder.cardItemLayoutBinding.tvDefinition.text = mCardList[position].definition
+        holder.cardItemLayoutBinding.tvExample.text = mCardList[position].example
     }
 
     override fun getItemCount(): Int {

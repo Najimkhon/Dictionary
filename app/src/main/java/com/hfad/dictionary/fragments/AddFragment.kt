@@ -40,6 +40,7 @@ class AddFragment : Fragment() {
         binding.btnAddCard.setOnClickListener{
             addCardToDb()
         }
+        binding.etExample.setText(args.currentWord.example)
 
         return view
     }
