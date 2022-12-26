@@ -42,6 +42,8 @@ class AddFragment : Fragment() {
         }
         binding.etExample.setText(args.currentWord.example)
 
+        binding.spStatus.onItemSelectedListener = mSharedViewModel.listener
+
         return view
     }
 
