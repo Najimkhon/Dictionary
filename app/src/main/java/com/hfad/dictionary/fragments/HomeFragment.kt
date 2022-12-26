@@ -28,12 +28,13 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.searchView.setOnQueryTextListener(this)
 
 
-        binding.imageView.setOnClickListener {
+        binding.tvSeeAllwords.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_wordFragment)
         }
         binding.btnSeeAll.setOnClickListener{
             findNavController().navigate(R.id.action_homeFragment_to_listFragment)
         }
+
 
 
         return view

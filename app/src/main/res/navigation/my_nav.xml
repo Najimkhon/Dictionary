@@ -43,6 +43,9 @@
         <argument
             android:name="currentWord"
             app:argType="com.hfad.dictionary.models.card.Card" />
+        <action
+            android:id="@+id/action_addFragment_to_listFragment"
+            app:destination="@id/listFragment" />
     </fragment>
     <fragment
         android:id="@+id/listFragment"

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.hfad.dictionary.R
 import com.hfad.dictionary.ViewModel.ViewModel
@@ -39,6 +40,7 @@ class AddFragment : Fragment() {
         binding.etExample.setText(args.currentWord.example)
         binding.btnAddCard.setOnClickListener{
             addCardToDb()
+            findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
         binding.etExample.setText(args.currentWord.example)
 
