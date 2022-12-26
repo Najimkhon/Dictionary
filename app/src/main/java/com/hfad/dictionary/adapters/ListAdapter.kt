@@ -8,15 +8,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hfad.dictionary.R
 import com.hfad.dictionary.databinding.CardItemLayoutBinding
-import com.hfad.dictionary.databinding.DefinitionItemLayoutBinding
 import com.hfad.dictionary.diffutils.CardDiffUtil
 import com.hfad.dictionary.fragments.ListFragmentDirections
-import com.hfad.dictionary.fragments.UpdateFragmentDirections
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
 
 
-open class ListOfCardsAdapter():RecyclerView.Adapter<ListOfCardsAdapter.ListViewHolder>() {
+open class ListAdapter():RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
 
     var mCardList = emptyList<Card>()
 

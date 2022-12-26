@@ -14,7 +14,6 @@ import com.hfad.dictionary.R
 import com.hfad.dictionary.ViewModel.ViewModel
 import com.hfad.dictionary.ViewModelFactory
 import com.hfad.dictionary.adapters.HomeAdapter
-import com.hfad.dictionary.adapters.ListOfCardsAdapter
 import com.hfad.dictionary.databinding.FragmentHomeBinding
 import com.hfad.dictionary.repository.Repository
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
@@ -52,9 +51,11 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         }
         mViewModel.getAllData.observe(viewLifecycleOwner){
             adapter.setCardData(it)
+            binding.tvLearntWords.text = it.size.toString()
+
         }
 
-        binding.tvLearntWords.text = adapter.mCounter.toString()
+
         setupRecyclerView()
 
         return view

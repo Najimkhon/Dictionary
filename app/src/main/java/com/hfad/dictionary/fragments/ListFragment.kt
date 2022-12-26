@@ -1,13 +1,12 @@
 package com.hfad.dictionary.fragments
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.hfad.dictionary.R
 import com.hfad.dictionary.ViewModel.ViewModel
 import com.hfad.dictionary.ViewModelFactory
-import com.hfad.dictionary.adapters.ListOfCardsAdapter
+import com.hfad.dictionary.adapters.ListAdapter
 import com.hfad.dictionary.databinding.FragmentListBinding
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.repository.Repository
@@ -24,10 +23,10 @@ import com.hfad.dictionary.utils.SwipeToDelete
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
-    private val adapter: ListOfCardsAdapter by lazy { ListOfCardsAdapter() }
+    private val adapter: ListAdapter by lazy { ListAdapter() }
     private val mViewModel: ViewModel by viewModels(){
         ViewModelFactory(
             Repository(),
@@ -49,6 +48,7 @@ class ListFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigate(R.id.action_listFragment_to_homeFragment)
         }
+        setHasOptionsMenu(true)
 
         return view
     }
@@ -75,6 +75,19 @@ class ListFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.list_of_cards_fragment_menu, menu)
+
+        val search = menu.findItem(R.id.menu_search)
+        val searchView = search.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun restoreDeletedData(view: View, deletedItem: Card, position: Int){
         val snackbar = Snackbar.make(
             view,
@@ -88,4 +101,26 @@ class ListFragment : Fragment() {
         snackbar.show()
     }
 
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null){
+            searchDatabase(query)
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(query: String?): Boolean {
+        if (query != null){
+            searchDatabase(query)
+        }
+        return true
+    }
+    private fun searchDatabase(query: String?) {
+        var searchQuery = "%$query%"
+
+        mViewModel.searchThroughDatabase(searchQuery).observe(this, Observer { list->
+            list?.let {
+                adapter.setCardData(it)
+            }
+        })
+    }
 }
