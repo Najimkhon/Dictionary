@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.HomeFragment"
     android:background="@color/main_bg"
-    android:padding="4dp">
+    android:padding="4dp"
+    tools:context=".fragments.HomeFragment">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
@@ -15,16 +14,16 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/search_background"
         android:elevation="2dp"
+        android:paddingRight="32dp"
+        android:paddingBottom="8dp"
         app:iconifiedByDefault="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        android:paddingBottom="8dp"
-        android:layout_marginBottom="16dp"
-        app:queryHint="Search..."
-        android:paddingRight="32dp"/>
+        app:queryHint="Search..." />
 
     <TextView
         android:id="@+id/tvHello"
@@ -34,129 +33,123 @@
         android:textColor="@color/dark_grey"
         android:textSize="22dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/searchView"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintLeft_toRightOf="@+id/imageView"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintBottom_toTopOf="@id/searchView"
-        app:layout_constraintVertical_bias="0.4"
-        app:layout_constraintHorizontal_bias="0"
-        />
+        app:layout_constraintVertical_bias="0.4" />
+
     <TextView
         android:id="@+id/tvLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:text="What are you looking for?"
         android:textColor="@color/light_grey"
         android:textSize="16dp"
-        android:layout_marginEnd="16dp"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintLeft_toRightOf="@+id/imageView"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvHello"
-        app:layout_constraintHorizontal_bias="0"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tvHello" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:src="@drawable/profileimage"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/recentWords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="22dp"
         android:text="Words to repeat"
         android:textColor="@color/dark_grey"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_margin="22dp"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
 
         />
-    <TextView
-        android:elevation="4dp"
-        android:id="@+id/cardview1"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRecents"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:layout_width="170dp"
-        android:layout_height="200dp"
-        android:background="@drawable/card_background"
-        app:layout_constraintTop_toBottomOf="@id/recentWords"
+        android:elevation="4dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        />
-    <TextView
-        android:elevation="4dp"
-        android:layout_margin="16dp"
-        android:layout_width="170dp"
-        android:layout_height="200dp"
-        android:background="@drawable/card_background"
-        app:layout_constraintTop_toBottomOf="@id/recentWords"
-        app:layout_constraintLeft_toRightOf="@id/cardview1"
-        />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recentWords" />
+
+
     <TextView
         android:id="@+id/tvSeeAllwords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="22dp"
         android:text="See recently added words"
         android:textColor="@color/dark_grey"
         android:textSize="18sp"
-        android:layout_margin="22dp"
-        app:layout_constraintTop_toBottomOf="@+id/cardview1"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/rvRecents" />
+
     <ImageView
         android:id="@+id/btnSeeAll"
         android:layout_width="32dp"
         android:layout_height="32dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/round_button_background"
-        android:textColor="@color/dark_grey"
         android:src="@drawable/ic_baseline_arrow_circle_right_24"
+        android:textColor="@color/dark_grey"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="6dp"
-        app:layout_constraintTop_toBottomOf="@+id/cardview1"
-        app:layout_constraintLeft_toRightOf="@id/tvSeeAllwords"
         app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintLeft_toRightOf="@id/tvSeeAllwords"
         app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/rvRecents" />
+
     <TextView
         android:id="@+id/tvStats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="22dp"
         android:text="Your stats:"
         android:textColor="@color/dark_grey"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_margin="22dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvSeeAllwords"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSeeAllwords"
 
 
         />
+
     <TextView
         android:id="@+id/tvLearntWords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="32"
         android:layout_margin="16dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/number_font"
+        android:text="32"
         android:textColor="@color/pink"
         android:textSize="40sp"
         android:textStyle="bold"
-        android:fontFamily="@font/number_font"
-        app:layout_constraintTop_toBottomOf="@+id/tvStats"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tvStats" />
+
     <TextView
         android:id="@+id/tvStatsLabel"
         android:layout_width="wrap_content"
@@ -164,8 +157,8 @@
         android:text="Words Learnt"
         android:textColor="@color/dark_grey"
         android:textSize="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvLearntWords"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLearntWords" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
