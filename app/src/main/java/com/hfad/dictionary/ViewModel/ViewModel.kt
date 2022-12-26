@@ -62,6 +62,7 @@ class ViewModel(private val repository: Repository, application: Application):An
     fun updateCard(card: Card){
         viewModelScope.launch(Dispatchers.IO){
             roomRepository.updateCard(card)
+            Log.d("Test", "viewmodel works")
         }
     }
 

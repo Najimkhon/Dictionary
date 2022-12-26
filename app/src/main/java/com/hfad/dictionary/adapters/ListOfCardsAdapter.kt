@@ -3,12 +3,15 @@ package com.hfad.dictionary.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hfad.dictionary.R
 import com.hfad.dictionary.databinding.CardItemLayoutBinding
 import com.hfad.dictionary.databinding.DefinitionItemLayoutBinding
 import com.hfad.dictionary.diffutils.CardDiffUtil
+import com.hfad.dictionary.fragments.ListFragmentDirections
+import com.hfad.dictionary.fragments.UpdateFragmentDirections
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
 
@@ -46,6 +49,11 @@ open class ListOfCardsAdapter():RecyclerView.Adapter<ListOfCardsAdapter.ListView
                     R.color.green
                 )
             )
+        }
+        holder.cardItemLayoutBinding.itemView.setOnClickListener{
+            val action =
+            ListFragmentDirections.actionListFragmentToUpdateFragment(mCardList[position])
+            holder.cardItemLayoutBinding.itemView.findNavController().navigate(action)
         }
     }
 

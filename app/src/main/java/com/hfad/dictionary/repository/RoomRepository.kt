@@ -1,5 +1,6 @@
 package com.hfad.dictionary.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.hfad.dictionary.ViewModel.CardDAO
 import com.hfad.dictionary.models.card.Card
@@ -16,6 +17,7 @@ class RoomRepository(private val cardDao: CardDAO) {
     }
     suspend fun updateCard(card: Card){
         cardDao.updateCard(card)
+        Log.d("Test", "rep works")
     }
 
     suspend fun deleteCard(card: Card){

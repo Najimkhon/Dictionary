@@ -1,5 +1,6 @@
 package com.hfad.dictionary.ViewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.hfad.dictionary.models.card.Card
@@ -13,7 +14,7 @@ interface CardDAO {
     suspend fun insertCard(toDoData: Card)
 
     @Update
-    suspend fun updateCard(toDoData: Card)
+    suspend fun updateCard(card: Card)
 
     @Delete
     suspend fun deleteCard(toDoData: Card)
