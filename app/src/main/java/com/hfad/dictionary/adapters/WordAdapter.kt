@@ -86,11 +86,6 @@ class WordAdapter() : RecyclerView.Adapter<WordViewHolder>() {
     }
 
 
-    private fun addCardToDb() {
-        val mWord = word
-
-    }
-
     inner class WordViewHolder(val definitionItemLayoutBinding: DefinitionItemLayoutBinding) :
         RecyclerView.ViewHolder(definitionItemLayoutBinding.root)
 

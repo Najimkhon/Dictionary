@@ -2,9 +2,11 @@ package com.hfad.dictionary.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hfad.dictionary.databinding.CardItemLayoutBinding
 import com.hfad.dictionary.databinding.DefinitionItemLayoutBinding
+import com.hfad.dictionary.diffutils.CardDiffUtil
 import com.hfad.dictionary.models.card.Card
 
 
@@ -29,8 +31,10 @@ open class ListOfCardsAdapter():RecyclerView.Adapter<ListOfCardsAdapter.ListView
     }
 
     fun setCardData(cardList: List<Card>) {
+        val cardDiffUtil = CardDiffUtil(mCardList, cardList)
+        val cardDiffResult = DiffUtil.calculateDiff(cardDiffUtil)
         this.mCardList = cardList
-        notifyDataSetChanged()
+        cardDiffResult.dispatchUpdatesTo(this)
     }
 
 

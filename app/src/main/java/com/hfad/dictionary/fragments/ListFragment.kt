@@ -6,17 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.hfad.dictionary.R
 import com.hfad.dictionary.ViewModel.ViewModel
 import com.hfad.dictionary.ViewModelFactory
 import com.hfad.dictionary.adapters.ListOfCardsAdapter
-import com.hfad.dictionary.adapters.WordAdapter
 import com.hfad.dictionary.databinding.FragmentListBinding
-import com.hfad.dictionary.databinding.FragmentWordBinding
 import com.hfad.dictionary.repository.Repository
-import jp.wasabeef.recyclerview.animators.LandingAnimator
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 
 class ListFragment : Fragment() {
@@ -49,7 +45,7 @@ class ListFragment : Fragment() {
         val recyclerView = binding.rvCardList
         recyclerView.adapter = adapter
         recyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
-        recyclerView.itemAnimator = LandingAnimator().apply { addDuration = 300 }
+        recyclerView.itemAnimator = SlideInUpAnimator().apply { addDuration = 300 }
 
     }
 
