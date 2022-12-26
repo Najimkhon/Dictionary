@@ -3,9 +3,12 @@ package com.hfad.dictionary.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hfad.dictionary.adapters.WordAdapter.*
 import com.hfad.dictionary.databinding.DefinitionItemLayoutBinding
+import com.hfad.dictionary.diffutils.CardDiffUtil
+import com.hfad.dictionary.diffutils.WordDiffutil
 import com.hfad.dictionary.fragments.WordFragmentDirections
 import com.hfad.dictionary.models.api.Definition
 import com.hfad.dictionary.models.card.Card
@@ -39,9 +42,11 @@ class WordAdapter() : RecyclerView.Adapter<WordViewHolder>() {
         return definitionsList.size
     }
 
-    fun setData(defintionsList: List<Definition>) {
-        this.definitionsList = defintionsList
-        notifyDataSetChanged()
+    fun setData(definitionList: List<Definition>) {
+        val cardDiffUtil = WordDiffutil(definitionsList, definitionList)
+        val cardDiffResult = DiffUtil.calculateDiff(cardDiffUtil)
+        this.definitionsList = definitionList
+        cardDiffResult.dispatchUpdatesTo(this)
     }
 
     fun setExampleData(examplesList: List<String>) {
