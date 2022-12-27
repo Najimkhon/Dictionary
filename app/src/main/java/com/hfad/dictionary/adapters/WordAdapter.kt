@@ -29,8 +29,9 @@ class WordAdapter() : RecyclerView.Adapter<WordViewHolder>() {
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val cardList = makeCards()
         holder.definitionItemLayoutBinding.tvDefinition.text = definitionsList[position].definition
-        holder.definitionItemLayoutBinding.tvMeaning.text = "Meaning ${position + 1}"
+        holder.definitionItemLayoutBinding.tvMeaning.text = "$word $position"
         holder.definitionItemLayoutBinding.tvExample.text = cardList[position].example
+        holder.definitionItemLayoutBinding.tvPartOfSpeech.text = definitionsList[position].partOfSpeech
         holder.definitionItemLayoutBinding.itemLayout.setOnClickListener {
             val action = WordFragmentDirections.actionWordFragmentToAddFragment(cardList[position])
             holder.definitionItemLayoutBinding.itemLayout.findNavController()
