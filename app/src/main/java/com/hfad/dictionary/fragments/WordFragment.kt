@@ -19,16 +19,14 @@ import com.hfad.dictionary.repository.Repository
 import jp.wasabeef.recyclerview.animators.LandingAnimator
 
 
-
 class WordFragment : Fragment() {
+    val args by navArgs<WordFragmentArgs>()
+    var definitions = emptyList<Definition>()
+    var examples = mutableListOf<String>()
     private var _binding: FragmentWordBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: ViewModel
     private val adapter: WordAdapter by lazy { WordAdapter() }
-    val args by navArgs<WordFragmentArgs>()
-    var definitions = emptyList<Definition>()
-    var examples = mutableListOf<String>()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,9 +67,6 @@ class WordFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.itemAnimator = LandingAnimator().apply { addDuration = 300 }
     }
-
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

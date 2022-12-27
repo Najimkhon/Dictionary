@@ -8,7 +8,7 @@ import com.hfad.dictionary.models.card.Card
 @Dao
 interface CardDAO {
     @Query("SELECT * FROM card_table ORDER BY id ASC")
-    fun getAllData():LiveData<List<Card>>
+    fun getAllData(): LiveData<List<Card>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertCard(toDoData: Card)

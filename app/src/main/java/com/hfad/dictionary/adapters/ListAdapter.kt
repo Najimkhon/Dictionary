@@ -14,7 +14,7 @@ import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
 
 
-open class ListAdapter():RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
+open class ListAdapter() : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
 
     var mCardList = emptyList<Card>()
 
@@ -48,9 +48,9 @@ open class ListAdapter():RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
                 )
             )
         }
-        holder.cardItemLayoutBinding.itemView.setOnClickListener{
+        holder.cardItemLayoutBinding.itemView.setOnClickListener {
             val action =
-            ListFragmentDirections.actionListFragmentToUpdateFragment(mCardList[position])
+                ListFragmentDirections.actionListFragmentToUpdateFragment(mCardList[position])
             holder.cardItemLayoutBinding.itemView.findNavController().navigate(action)
         }
     }
@@ -65,8 +65,6 @@ open class ListAdapter():RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
         this.mCardList = cardList
         cardDiffResult.dispatchUpdatesTo(this)
     }
-
-
 
     inner class ListViewHolder(val cardItemLayoutBinding: CardItemLayoutBinding) :
         RecyclerView.ViewHolder(cardItemLayoutBinding.root)
