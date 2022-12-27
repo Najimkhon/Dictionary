@@ -23,7 +23,7 @@ class UpdateFragment : Fragment() {
     private var _binding: FragmentUpdateBinding? = null
     private val binding get() = _binding!!
     private val mSharedViewModel: SharedViewModel by viewModels()
-    private val mViewModel: ViewModel by viewModels(){
+    private val mViewModel: ViewModel by viewModels() {
         ViewModelFactory(
             Repository(),
             requireActivity().application
@@ -40,7 +40,7 @@ class UpdateFragment : Fragment() {
         binding.etTitle.setText(args.currentWord.word)
         binding.etDefinition.setText(args.currentWord.definition)
         binding.etExample.setText(args.currentWord.example)
-        binding.btnAddCard.setOnClickListener{
+        binding.btnAddCard.setOnClickListener {
             updateCard()
         }
         binding.etExample.setText(args.currentWord.example)
@@ -50,6 +50,7 @@ class UpdateFragment : Fragment() {
 
         return view
     }
+
     private fun updateCard() {
         val mWord = binding.etTitle.text.toString()
         val mStatus = mSharedViewModel.parseStatus(binding.spStatus.selectedItem.toString())
@@ -69,8 +70,9 @@ class UpdateFragment : Fragment() {
             )
             mViewModel.updateCard(updatedCard)
             findNavController().navigate(R.id.action_updateFragment_to_listFragment)
-        }else{
-            Toast.makeText(requireContext(), "Please, fill out all the fields!", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "Please, fill out all the fields!", Toast.LENGTH_SHORT)
+                .show()
         }
 
 

@@ -31,30 +31,24 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
-
-
         binding.searchView.setOnQueryTextListener(this)
-
-
         binding.tvSeeAllwords.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_wordFragment)
         }
         binding.btnSeeAll.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_listFragment)
         }
-        mViewModel.getAllData.observe(viewLifecycleOwner){
+        mViewModel.getAllData.observe(viewLifecycleOwner) {
             adapter.setCardData(it)
             binding.tvLearntWords.text = it.size.toString()
 
         }
-
 
         setupRecyclerView()
 

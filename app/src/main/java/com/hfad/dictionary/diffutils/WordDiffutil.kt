@@ -6,7 +6,7 @@ import com.hfad.dictionary.models.api.Definition
 class WordDiffutil(
     private val oldList: List<Definition>,
     private val newList: List<Definition>
-): DiffUtil.Callback() {
+) : DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size
     }

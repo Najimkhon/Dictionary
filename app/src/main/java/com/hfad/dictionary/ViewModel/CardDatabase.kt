@@ -10,19 +10,19 @@ import com.hfad.dictionary.models.card.Card
 
 @Database(entities = [Card::class], version = 1, exportSchema = false)
 @TypeConverters(Converter::class)
-abstract class CardDatabase:RoomDatabase() {
-    abstract fun cardDao():CardDAO
+abstract class CardDatabase : RoomDatabase() {
+    abstract fun cardDao(): CardDAO
 
-    companion object{
+    companion object {
         @Volatile
         private var INSTANCE: CardDatabase? = null
 
-        fun getDatabase(context: Context):CardDatabase{
+        fun getDatabase(context: Context): CardDatabase {
             val tempInstance = INSTANCE
-            if (tempInstance!=null){
+            if (tempInstance != null) {
                 return tempInstance
             }
-            synchronized(this){
+            synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     CardDatabase::class.java,

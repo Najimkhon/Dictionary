@@ -12,7 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class ViewModel(private val repository: Repository, application: Application):AndroidViewModel(application) {
+class ViewModel(private val repository: Repository, application: Application) :
+    AndroidViewModel(application) {
 
     private val cardDao = CardDatabase.getDatabase(
         application
@@ -30,13 +31,11 @@ class ViewModel(private val repository: Repository, application: Application):An
         sortByLearned = roomRepository.sortByLearned
         sortByRepeat = roomRepository.sortByRepeat
     }
-
-
     //api
     val myResponse: MutableLiveData<Response<SearchResponse>> = MutableLiveData()
     val myExamplesResponse: MutableLiveData<Response<ExamplesResponse>> = MutableLiveData()
 
-    fun getData(word:String){
+    fun getData(word: String) {
         viewModelScope.launch {
             val response = repository.getDefinition(word)
             myResponse.value = response
@@ -44,7 +43,7 @@ class ViewModel(private val repository: Repository, application: Application):An
         }
     }
 
-    fun getExamples(word:String){
+    fun getExamples(word: String) {
         viewModelScope.launch {
             val response = repository.getExamples(word)
             myExamplesResponse.value = response
@@ -53,31 +52,32 @@ class ViewModel(private val repository: Repository, application: Application):An
     }
 
     //room
-    fun insertData(card: Card){
+    fun insertData(card: Card) {
         viewModelScope.launch(Dispatchers.IO) {
             roomRepository.insertCard(card)
         }
     }
 
-    fun updateCard(card: Card){
-        viewModelScope.launch(Dispatchers.IO){
+    fun updateCard(card: Card) {
+        viewModelScope.launch(Dispatchers.IO) {
             roomRepository.updateCard(card)
             Log.d("Test", "viewmodel works")
         }
     }
 
-    fun deleteCard(card: Card){
-        viewModelScope.launch(Dispatchers.IO){
+    fun deleteCard(card: Card) {
+        viewModelScope.launch(Dispatchers.IO) {
             roomRepository.deleteCard(card)
         }
     }
-    fun deleteAll(){
-        viewModelScope.launch(Dispatchers.IO){
+
+    fun deleteAll() {
+        viewModelScope.launch(Dispatchers.IO) {
             roomRepository.deleteAll()
         }
     }
 
-    fun searchThroughDatabase(query: String):LiveData<List<Card>>{
+    fun searchThroughDatabase(query: String): LiveData<List<Card>> {
         return roomRepository.searchThroughDatabase(query)
     }
 

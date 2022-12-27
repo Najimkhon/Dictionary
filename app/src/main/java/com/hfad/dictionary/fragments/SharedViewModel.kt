@@ -18,12 +18,33 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
     val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(false)
 
     val listener: AdapterView.OnItemSelectedListener = object :
-    AdapterView.OnItemSelectedListener{
+        AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            when(position){
-                0-> {(parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.red))}
-                1-> {(parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.yellow))}
-                2-> {(parent?.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(application, R.color.green))}
+            when (position) {
+                0 -> {
+                    (parent?.getChildAt(0) as TextView).setTextColor(
+                        ContextCompat.getColor(
+                            application,
+                            R.color.red
+                        )
+                    )
+                }
+                1 -> {
+                    (parent?.getChildAt(0) as TextView).setTextColor(
+                        ContextCompat.getColor(
+                            application,
+                            R.color.yellow
+                        )
+                    )
+                }
+                2 -> {
+                    (parent?.getChildAt(0) as TextView).setTextColor(
+                        ContextCompat.getColor(
+                            application,
+                            R.color.green
+                        )
+                    )
+                }
             }
         }
 
@@ -32,7 +53,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     }
 
-    fun checkIfDatabaseEmpty(cardList: List<Card>){
+    fun checkIfDatabaseEmpty(cardList: List<Card>) {
         emptyDatabase.value = cardList.isEmpty()
     }
 
@@ -59,8 +80,9 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
         }
 
     }
-    fun parseStatusToInt(status: Status):Int{
-        return when(status){
+
+    fun parseStatusToInt(status: Status): Int {
+        return when (status) {
             Status.New -> 0
             Status.Repeat -> 1
             Status.Learned -> 2

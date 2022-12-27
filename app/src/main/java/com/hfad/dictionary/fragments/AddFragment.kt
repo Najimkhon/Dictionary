@@ -21,7 +21,7 @@ class AddFragment : Fragment() {
     val args by navArgs<AddFragmentArgs>()
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
-    private val mViewModel: ViewModel by viewModels(){
+    private val mViewModel: ViewModel by viewModels() {
         ViewModelFactory(
             Repository(),
             requireActivity().application
@@ -38,7 +38,7 @@ class AddFragment : Fragment() {
         binding.etTitle.setText(args.currentWord.word)
         binding.etDefinition.setText(args.currentWord.definition)
         binding.etExample.setText(args.currentWord.example)
-        binding.btnAddCard.setOnClickListener{
+        binding.btnAddCard.setOnClickListener {
             addCardToDb()
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
@@ -65,13 +65,12 @@ class AddFragment : Fragment() {
                 partOfSpeech,
                 mDefinition,
                 mExample
-                )
+            )
             mViewModel.insertData(newCard)
-        }else{
-            Toast.makeText(requireContext(), "Please, fill out all the fields!", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "Please, fill out all the fields!", Toast.LENGTH_SHORT)
+                .show()
         }
-
-
     }
 
     override fun onDestroyView() {

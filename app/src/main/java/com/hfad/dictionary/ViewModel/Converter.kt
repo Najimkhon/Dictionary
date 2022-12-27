@@ -6,7 +6,7 @@ import com.hfad.dictionary.models.card.Status
 class Converter {
 
     @TypeConverter
-    fun fromStatus(status: Status):String{
+    fun fromStatus(status: Status): String {
         return status.name
     }
 

@@ -11,11 +11,9 @@ import com.hfad.dictionary.diffutils.CardDiffUtil
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
 
-class HomeAdapter(): RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
+class HomeAdapter() : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     var mCardList = emptyList<Card>()
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         return HomeViewHolder(
@@ -52,6 +50,7 @@ class HomeAdapter(): RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
     override fun getItemCount(): Int {
         return mCardList.size
     }
+
     fun setCardData(cardList: List<Card>) {
         val cardDiffUtil = CardDiffUtil(mCardList, cardList)
         val cardDiffResult = DiffUtil.calculateDiff(cardDiffUtil)
