@@ -1,7 +1,9 @@
 package com.hfad.dictionary.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.activity.addCallback
 import androidx.appcompat.widget.SearchView
@@ -84,7 +86,12 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         searchView?.setOnQueryTextListener(this)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
+        when(item.itemId){
+            R.id.deleteAll -> deleteAll()
+            R.id.statusNew -> mViewModel.sortByNew.observe(this) { adapter.setCardData(it) }
+            R.id.statusLearned -> mViewModel.sortByLearned.observe(this) { adapter.setCardData(it) }
+            R.id.statusRepeat -> mViewModel.sortByRepeat.observe(this) { adapter.setCardData(it) }
+        }
         return super.onOptionsItemSelected(item)
     }
 
@@ -122,5 +129,16 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
                 adapter.setCardData(it)
             }
         })
+    }
+    private fun deleteAll(){
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes"){_,_->
+            mViewModel.deleteAll()
+            Toast.makeText(requireContext(), "All Records are Removed", Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton("No"){_,_->}
+        builder.setTitle("Delete All Records?")
+        builder.setMessage("Are you sure you want to delete all records?")
+        builder.create().show()
     }
 }
