@@ -49,11 +49,11 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.btnSeeAll.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_listFragment)
         }
-        mViewModel.sortByNew.observe(viewLifecycleOwner){
+        mViewModel.getAllData.observe(viewLifecycleOwner){
             adapter.setCardData(it)
             binding.tvLearntWords.text = it.size.toString()
-        }
 
+        }
 
 
         setupRecyclerView()
