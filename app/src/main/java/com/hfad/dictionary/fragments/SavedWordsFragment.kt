@@ -4,9 +4,9 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.activity.addCallback
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -14,23 +14,23 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.hfad.dictionary.MainViewModelFactory
 import com.hfad.dictionary.R
-import com.hfad.dictionary.ViewModel.ViewModel
-import com.hfad.dictionary.ViewModelFactory
 import com.hfad.dictionary.adapters.ListAdapter
 import com.hfad.dictionary.databinding.FragmentListBinding
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.repository.Repository
 import com.hfad.dictionary.utils.SwipeToDelete
+import com.hfad.dictionary.viewmodel.MainViewModel
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
+class SavedWordsFragment : Fragment(), SearchView.OnQueryTextListener {
 
-class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
     private val adapter: ListAdapter by lazy { ListAdapter() }
-    private val mViewModel: ViewModel by viewModels() {
-        ViewModelFactory(
+    private val viewModel: MainViewModel by viewModels {
+        MainViewModelFactory(
             Repository(),
             requireActivity().application
         )
@@ -43,9 +43,10 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         _binding = FragmentListBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        mViewModel.getAllData.observe(viewLifecycleOwner) {
+        viewModel.getAllData.observe(viewLifecycleOwner) {
             adapter.setCardData(it)
         }
+
         setupRecyclerView()
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigate(R.id.action_listFragment_to_homeFragment)
@@ -69,7 +70,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         val swipeToDeleteCallback = object : SwipeToDelete() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val itemToDelete = adapter.mCardList[viewHolder.adapterPosition]
-                mViewModel.deleteCard(itemToDelete)
+                viewModel.deleteCard(itemToDelete)
                 adapter.notifyItemChanged(viewHolder.adapterPosition)
                 restoreDeletedData(viewHolder.itemView, itemToDelete, viewHolder.adapterPosition)
             }
@@ -90,9 +91,9 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.deleteAll -> deleteAll()
-            R.id.statusNew -> mViewModel.sortByNew.observe(this) { adapter.setCardData(it) }
-            R.id.statusLearned -> mViewModel.sortByLearned.observe(this) { adapter.setCardData(it) }
-            R.id.statusRepeat -> mViewModel.sortByRepeat.observe(this) { adapter.setCardData(it) }
+            R.id.statusNew -> viewModel.sortByNew.observe(this) { adapter.setCardData(it) }
+            R.id.statusLearned -> viewModel.sortByLearned.observe(this) { adapter.setCardData(it) }
+            R.id.statusRepeat -> viewModel.sortByRepeat.observe(this) { adapter.setCardData(it) }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -104,7 +105,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
             Snackbar.LENGTH_LONG
         )
         snackbar.setAction("Undo") {
-            mViewModel.insertData(deletedItem)
+            viewModel.insertData(deletedItem)
             adapter.notifyItemChanged(position)
         }
         snackbar.show()
@@ -127,7 +128,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun searchDatabase(query: String?) {
         var searchQuery = "%$query%"
 
-        mViewModel.searchThroughDatabase(searchQuery).observe(this, Observer { list ->
+        viewModel.searchThroughDatabase(searchQuery).observe(this, Observer { list ->
             list?.let {
                 adapter.setCardData(it)
             }
@@ -137,7 +138,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun deleteAll() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _, _ ->
-            mViewModel.deleteAll()
+            viewModel.deleteAll()
             Toast.makeText(requireContext(), "All Records are Removed", Toast.LENGTH_SHORT).show()
         }
         builder.setNegativeButton("No") { _, _ -> }
