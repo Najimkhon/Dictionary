@@ -30,21 +30,30 @@ class MainViewModel(application: Application) :
     private val networkRepository: NetworkRepository = NetworkRepository()
     val wordResultListLiveData: MutableLiveData<List<Card>> = MutableLiveData()
 
+    // state
+     val uiStateLiveData: MutableLiveData<UiState> = MutableLiveData()
+
     init {
         println("hop: ViewModel is created")
     }
 
     // todo: ui state with viewmodel communication for network error, empty list...
     fun searchForWord(word: String) {
+        uiStateLiveData.value = UiState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             val definitionsResponse = networkRepository.fetchDefinitions(word)
             val examplesResponse = networkRepository.fetchExamples(word) // low priority
 
             if (definitionsResponse == null || examplesResponse == null) {
-                // we had an issue with network
+                uiStateLiveData.postValue(UiState.NetworkError)
             } else {
                 val cardList = generateWordCardList(word, definitionsResponse, examplesResponse)
-                wordResultListLiveData.postValue(cardList)
+                if (cardList.isEmpty()) {
+                    uiStateLiveData.postValue(UiState.EmptyResult)
+                } else {
+                    uiStateLiveData.postValue(UiState.Success)
+                    wordResultListLiveData.postValue(cardList)
+                }
             }
         }
     }
@@ -79,7 +88,11 @@ class MainViewModel(application: Application) :
         return roomRepository.searchThroughDatabase(query)
     }
 
-    private fun generateWordCardList(word: String, definitionsResponse: DefinitionResponse, examplesResponse: ExamplesResponse): List<Card> {
+    private fun generateWordCardList(
+        word: String,
+        definitionsResponse: DefinitionResponse,
+        examplesResponse: ExamplesResponse
+    ): List<Card> {
         val definitionsList = definitionsResponse.definitions
         val examplesList = examplesResponse.examples
 
@@ -91,7 +104,7 @@ class MainViewModel(application: Application) :
                         0,
                         word,
                         Status.New,
-                        definitionsList[i].partOfSpeech,
+                        definitionsList[i].partOfSpeech ?: "",
                         definitionsList[i].definition,
                         examplesList[i]
                     )
@@ -102,7 +115,7 @@ class MainViewModel(application: Application) :
                         0,
                         word,
                         Status.New,
-                        definitionsList[i].partOfSpeech,
+                        definitionsList[i].partOfSpeech ?: "",
                         definitionsList[i].definition,
                         "No example available. Please, write your own!"
                     )
@@ -110,6 +123,13 @@ class MainViewModel(application: Application) :
             }
         }
         return cardList
+    }
+
+    enum class UiState {
+        Loading,
+        NetworkError,
+        EmptyResult,
+        Success
     }
 
 }

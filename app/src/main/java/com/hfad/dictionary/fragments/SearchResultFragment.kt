@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -39,12 +41,38 @@ class SearchResultFragment : Fragment() {
         viewModel.wordResultListLiveData.observe(viewLifecycleOwner) {
             adapter.setData(it)
         }
+        viewModel.uiStateLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                MainViewModel.UiState.Loading -> {
+                    binding.rvWords.isGone = true
+                    binding.tvMessage.isGone = true
+                    binding.pbLoading.isVisible = true
+                }
+                MainViewModel.UiState.NetworkError -> {
+                    binding.rvWords.isGone = true
+                    binding.pbLoading.isGone = true
+                    binding.tvMessage.isVisible = true
+                    binding.tvMessage.text = "Please, check your internet connection!"
+                }
+                MainViewModel.UiState.EmptyResult -> {
+                    binding.rvWords.isGone = true
+                    binding.pbLoading.isGone = true
+                    binding.tvMessage.isVisible = true
+                    binding.tvMessage.text = "We couldn't find any results"
+                }
+                MainViewModel.UiState.Success -> {
+                    binding.tvMessage.isGone = true
+                    binding.pbLoading.isGone = true
+                    binding.rvWords.isVisible = true
+                }
+            }
+        }
         viewModel.searchForWord(args.searchWord)
         return view
     }
 
     private fun setupRecyclerView() {
-        val recyclerView = binding.definitionsRecyclerView
+        val recyclerView = binding.rvWords
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.itemAnimator = LandingAnimator().apply { addDuration = 300 }
