@@ -1,8 +1,11 @@
-package com.hfad.dictionary.ViewModel
+package com.hfad.dictionary.viewmodel
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.hfad.dictionary.models.api.ExamplesResponse
 import com.hfad.dictionary.models.api.SearchResponse
 import com.hfad.dictionary.models.card.Card
@@ -12,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class ViewModel(private val repository: Repository, application: Application) :
+class MainViewModel(private val repository: Repository, application: Application) :
     AndroidViewModel(application) {
 
     private val cardDao = CardDatabase.getDatabase(
@@ -31,6 +34,11 @@ class ViewModel(private val repository: Repository, application: Application) :
         sortByLearned = roomRepository.sortByLearned
         sortByRepeat = roomRepository.sortByRepeat
     }
+
+    init {
+        println("hop: ViewModel is created")
+    }
+
     //api
     val myResponse: MutableLiveData<Response<SearchResponse>> = MutableLiveData()
     val myExamplesResponse: MutableLiveData<Response<ExamplesResponse>> = MutableLiveData()

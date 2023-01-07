@@ -1,12 +1,11 @@
 package com.hfad.dictionary.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import com.hfad.dictionary.ViewModel.CardDAO
 import com.hfad.dictionary.models.card.Card
-
+import com.hfad.dictionary.viewmodel.CardDAO
 
 class RoomRepository(private val cardDao: CardDAO) {
+
     val getAllData: LiveData<List<Card>> = cardDao.getAllData()
     val sortByLearned: LiveData<List<Card>> = cardDao.sortByLowLearned()
     val sortByNew: LiveData<List<Card>> = cardDao.sortByNewStatus()

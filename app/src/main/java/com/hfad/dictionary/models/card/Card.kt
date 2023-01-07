@@ -7,13 +7,13 @@ import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "card_table")
 @Parcelize
-data class Card (
+data class Card(
     @PrimaryKey(autoGenerate = true)
-    val id:Int,
-    val word:String,
+    val id: Int,
+    val word: String,
     val status: Status,
     val partsOfSpeech: String,
-    val definition:String,
-    val example:String=""
-        ):Parcelable
+    val definition: String,
+    val example: String = ""
+) : Parcelable
 

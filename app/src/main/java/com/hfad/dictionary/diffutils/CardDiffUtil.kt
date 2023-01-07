@@ -7,6 +7,7 @@ class CardDiffUtil(
     private val oldList: List<Card>,
     private val newList: List<Card>
 ) : DiffUtil.Callback() {
+
     override fun getOldListSize(): Int {
         return oldList.size
     }

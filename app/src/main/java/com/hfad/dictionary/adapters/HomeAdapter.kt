@@ -11,7 +11,7 @@ import com.hfad.dictionary.diffutils.CardDiffUtil
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
 
-class HomeAdapter() : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
+class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     var mCardList = emptyList<Card>()
 

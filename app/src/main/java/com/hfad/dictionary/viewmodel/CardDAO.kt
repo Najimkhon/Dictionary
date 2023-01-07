@@ -1,12 +1,12 @@
-package com.hfad.dictionary.ViewModel
+package com.hfad.dictionary.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.hfad.dictionary.models.card.Card
 
 @Dao
 interface CardDAO {
+
     @Query("SELECT * FROM card_table ORDER BY id ASC")
     fun getAllData(): LiveData<List<Card>>
 

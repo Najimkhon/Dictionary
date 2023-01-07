@@ -5,17 +5,15 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.hfad.dictionary.adapters.WordAdapter.*
+import com.hfad.dictionary.adapters.WordAdapter.WordViewHolder
 import com.hfad.dictionary.databinding.DefinitionItemLayoutBinding
-import com.hfad.dictionary.diffutils.CardDiffUtil
 import com.hfad.dictionary.diffutils.WordDiffutil
 import com.hfad.dictionary.fragments.WordFragmentDirections
 import com.hfad.dictionary.models.api.Definition
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
 
-
-class WordAdapter() : RecyclerView.Adapter<WordViewHolder>() {
+class WordAdapter : RecyclerView.Adapter<WordViewHolder>() {
 
     var definitionsList = emptyList<Definition>()
     var examplesList = emptyList<String>()
@@ -91,7 +89,6 @@ class WordAdapter() : RecyclerView.Adapter<WordViewHolder>() {
 
         return cardList
     }
-
 
     inner class WordViewHolder(val definitionItemLayoutBinding: DefinitionItemLayoutBinding) :
         RecyclerView.ViewHolder(definitionItemLayoutBinding.root)

@@ -9,6 +9,7 @@ import retrofit2.http.Headers
 import retrofit2.http.Path
 
 interface DictionaryResponseInterface {
+
     @Headers(
         "${Constants.KEY_HEADER_TITLE}:${Constants.API_KEY}",
         "${Constants.HOST_HEADER_TITLE}:${Constants.API_HOST}"
@@ -17,7 +18,6 @@ interface DictionaryResponseInterface {
     suspend fun getDefinition(
         @Path("word") word: String
     ): Response<SearchResponse>
-
 
     @Headers(
         "${Constants.KEY_HEADER_TITLE}:${Constants.API_KEY}",

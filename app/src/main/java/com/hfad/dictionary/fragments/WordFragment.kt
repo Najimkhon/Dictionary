@@ -2,30 +2,29 @@ package com.hfad.dictionary.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hfad.dictionary.ViewModel.ViewModel
-import com.hfad.dictionary.ViewModelFactory
+import com.hfad.dictionary.MainViewModelFactory
 import com.hfad.dictionary.adapters.WordAdapter
 import com.hfad.dictionary.databinding.FragmentWordBinding
 import com.hfad.dictionary.models.api.Definition
 import com.hfad.dictionary.repository.Repository
+import com.hfad.dictionary.viewmodel.MainViewModel
 import jp.wasabeef.recyclerview.animators.LandingAnimator
 
-
 class WordFragment : Fragment() {
+
     val args by navArgs<WordFragmentArgs>()
     var definitions = emptyList<Definition>()
     var examples = mutableListOf<String>()
     private var _binding: FragmentWordBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: ViewModel
+    private lateinit var viewModel: MainViewModel
     private val adapter: WordAdapter by lazy { WordAdapter() }
 
     override fun onCreateView(
@@ -36,8 +35,8 @@ class WordFragment : Fragment() {
         val view = binding.root
 
         val repository = Repository()
-        val viewModelFactory = ViewModelFactory(repository, requireActivity().application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(ViewModel::class.java)
+        val mainViewModelFactory = MainViewModelFactory(repository, requireActivity().application)
+        viewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
         viewModel.getData(args.searchWord)
         viewModel.myResponse.observe(viewLifecycleOwner) {
             if (it.isSuccessful) {
@@ -72,6 +71,5 @@ class WordFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 
 }

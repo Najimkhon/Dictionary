@@ -1,4 +1,4 @@
-package com.hfad.dictionary.ViewModel
+package com.hfad.dictionary.viewmodel
 
 import androidx.room.TypeConverter
 import com.hfad.dictionary.models.card.Status

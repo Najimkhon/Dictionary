@@ -7,6 +7,7 @@ class WordDiffutil(
     private val oldList: List<Definition>,
     private val newList: List<Definition>
 ) : DiffUtil.Callback() {
+
     override fun getOldListSize(): Int {
         return oldList.size
     }

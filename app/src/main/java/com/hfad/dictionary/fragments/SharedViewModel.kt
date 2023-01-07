@@ -12,7 +12,6 @@ import com.hfad.dictionary.R
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
 
-
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
     val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -87,7 +86,5 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
             Status.Repeat -> 1
             Status.Learned -> 2
         }
-
     }
-
 }

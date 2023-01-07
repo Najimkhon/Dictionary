@@ -1,6 +1,7 @@
 package com.hfad.dictionary.utils
 
 object Constants {
+
     const val BASE_URL = "https://wordsapiv1.p.rapidapi.com/"
     const val EXAMPLE_REQUEST = "examples"
     const val DEFINITION_REQUEST = "definitions"

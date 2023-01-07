@@ -13,8 +13,7 @@ import com.hfad.dictionary.fragments.ListFragmentDirections
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
 
-
-open class ListAdapter() : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
+open class ListAdapter : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
 
     var mCardList = emptyList<Card>()
 
@@ -68,6 +67,5 @@ open class ListAdapter() : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
 
     inner class ListViewHolder(val cardItemLayoutBinding: CardItemLayoutBinding) :
         RecyclerView.ViewHolder(cardItemLayoutBinding.root)
-
 
 }
