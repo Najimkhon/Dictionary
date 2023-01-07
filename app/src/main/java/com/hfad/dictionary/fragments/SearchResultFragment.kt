@@ -11,18 +11,18 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hfad.dictionary.MainViewModelFactory
 import com.hfad.dictionary.adapters.WordAdapter
-import com.hfad.dictionary.databinding.FragmentWordBinding
+import com.hfad.dictionary.databinding.FragmentSearchResultBinding
 import com.hfad.dictionary.models.api.Definition
 import com.hfad.dictionary.repository.Repository
 import com.hfad.dictionary.viewmodel.MainViewModel
 import jp.wasabeef.recyclerview.animators.LandingAnimator
 
-class WordFragment : Fragment() {
+class SearchResultFragment : Fragment() {
 
-    val args by navArgs<WordFragmentArgs>()
+    val args by navArgs<SearchResultFragmentArgs>()
     var definitions = emptyList<Definition>()
     var examples = mutableListOf<String>()
-    private var _binding: FragmentWordBinding? = null
+    private var _binding: FragmentSearchResultBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: MainViewModel
     private val adapter: WordAdapter by lazy { WordAdapter() }
@@ -31,7 +31,7 @@ class WordFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentWordBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchResultBinding.inflate(inflater, container, false)
         val view = binding.root
 
         val repository = Repository()

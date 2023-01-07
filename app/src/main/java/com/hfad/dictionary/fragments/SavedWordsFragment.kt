@@ -4,20 +4,18 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.hfad.dictionary.MainViewModelFactory
 import com.hfad.dictionary.R
-import com.hfad.dictionary.adapters.ListAdapter
-import com.hfad.dictionary.databinding.FragmentListBinding
+import com.hfad.dictionary.adapters.SavedWordsAdapter
+import com.hfad.dictionary.databinding.FragmentSavedWordsBinding
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.repository.Repository
 import com.hfad.dictionary.utils.SwipeToDelete
@@ -26,9 +24,9 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class SavedWordsFragment : Fragment(), SearchView.OnQueryTextListener {
 
-    private var _binding: FragmentListBinding? = null
+    private var _binding: FragmentSavedWordsBinding? = null
     private val binding get() = _binding!!
-    private val adapter: ListAdapter by lazy { ListAdapter() }
+    private val adapter: SavedWordsAdapter by lazy { SavedWordsAdapter() }
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(
             Repository(),
@@ -40,7 +38,7 @@ class SavedWordsFragment : Fragment(), SearchView.OnQueryTextListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentListBinding.inflate(inflater, container, false)
+        _binding = FragmentSavedWordsBinding.inflate(inflater, container, false)
         val view = binding.root
 
         viewModel.getAllData.observe(viewLifecycleOwner) {
@@ -48,9 +46,6 @@ class SavedWordsFragment : Fragment(), SearchView.OnQueryTextListener {
         }
 
         setupRecyclerView()
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().navigate(R.id.action_listFragment_to_homeFragment)
-        }
         setHasOptionsMenu(true)
 
         return view

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hfad.dictionary.adapters.WordAdapter.WordViewHolder
 import com.hfad.dictionary.databinding.DefinitionItemLayoutBinding
 import com.hfad.dictionary.diffutils.WordDiffutil
-import com.hfad.dictionary.fragments.WordFragmentDirections
+import com.hfad.dictionary.fragments.SearchResultFragmentDirections
 import com.hfad.dictionary.models.api.Definition
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
@@ -32,7 +32,7 @@ class WordAdapter : RecyclerView.Adapter<WordViewHolder>() {
         holder.definitionItemLayoutBinding.tvPartOfSpeech.text =
             definitionsList[position].partOfSpeech
         holder.definitionItemLayoutBinding.itemLayout.setOnClickListener {
-            val action = WordFragmentDirections.actionWordFragmentToAddFragment(cardList[position])
+            val action = SearchResultFragmentDirections.actionWordFragmentToAddFragment(cardList[position])
             holder.definitionItemLayoutBinding.itemLayout.findNavController()
                 .navigate(action)
         }

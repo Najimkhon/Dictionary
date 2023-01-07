@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.hfad.dictionary.MainViewModelFactory
-import com.hfad.dictionary.R
 import com.hfad.dictionary.databinding.FragmentUpdateBinding
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.repository.Repository
@@ -68,7 +67,7 @@ class UpdateFragment : Fragment() {
                 mExample
             )
             viewModel.updateCard(updatedCard)
-            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+            findNavController().navigateUp()
         } else {
             Toast.makeText(requireContext(), "Please, fill out all the fields!", Toast.LENGTH_SHORT)
                 .show()

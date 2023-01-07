@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hfad.dictionary.R
 import com.hfad.dictionary.databinding.CardItemLayoutBinding
 import com.hfad.dictionary.diffutils.CardDiffUtil
-import com.hfad.dictionary.fragments.ListFragmentDirections
+import com.hfad.dictionary.fragments.SavedWordsFragmentDirections
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
 
-open class ListAdapter : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
+open class SavedWordsAdapter : RecyclerView.Adapter<SavedWordsAdapter.ListViewHolder>() {
 
     var mCardList = emptyList<Card>()
 
@@ -49,7 +49,7 @@ open class ListAdapter : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
         }
         holder.cardItemLayoutBinding.itemView.setOnClickListener {
             val action =
-                ListFragmentDirections.actionListFragmentToUpdateFragment(mCardList[position])
+                SavedWordsFragmentDirections.actionListFragmentToUpdateFragment(mCardList[position])
             holder.cardItemLayoutBinding.itemView.findNavController().navigate(action)
         }
     }
