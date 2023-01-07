@@ -31,7 +31,7 @@ class MainViewModel(application: Application) :
     val wordResultListLiveData: MutableLiveData<List<Card>> = MutableLiveData()
 
     // state
-     val uiStateLiveData: MutableLiveData<UiState> = MutableLiveData()
+    val uiStateLiveData: MutableLiveData<UiState> = MutableLiveData()
 
     init {
         println("hop: ViewModel is created")
@@ -45,15 +45,11 @@ class MainViewModel(application: Application) :
             val examplesResponse = networkRepository.fetchExamples(word) // low priority
 
             if (definitionsResponse == null || examplesResponse == null) {
-                uiStateLiveData.postValue(UiState.NetworkError)
+                uiStateLiveData.postValue(UiState.EmptyResult)
             } else {
                 val cardList = generateWordCardList(word, definitionsResponse, examplesResponse)
-                if (cardList.isEmpty()) {
-                    uiStateLiveData.postValue(UiState.EmptyResult)
-                } else {
-                    uiStateLiveData.postValue(UiState.Success)
-                    wordResultListLiveData.postValue(cardList)
-                }
+                uiStateLiveData.postValue(UiState.Success)
+                wordResultListLiveData.postValue(cardList)
             }
         }
     }
@@ -127,7 +123,6 @@ class MainViewModel(application: Application) :
 
     enum class UiState {
         Loading,
-        NetworkError,
         EmptyResult,
         Success
     }

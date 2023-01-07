@@ -48,12 +48,6 @@ class SearchResultFragment : Fragment() {
                     binding.tvMessage.isGone = true
                     binding.pbLoading.isVisible = true
                 }
-                MainViewModel.UiState.NetworkError -> {
-                    binding.rvWords.isGone = true
-                    binding.pbLoading.isGone = true
-                    binding.tvMessage.isVisible = true
-                    binding.tvMessage.text = "Please, check your internet connection!"
-                }
                 MainViewModel.UiState.EmptyResult -> {
                     binding.rvWords.isGone = true
                     binding.pbLoading.isGone = true
