@@ -109,6 +109,7 @@ class MainViewModel(application: Application) :
                 )
             }
         }
+        return cardList
     }
 
 }
