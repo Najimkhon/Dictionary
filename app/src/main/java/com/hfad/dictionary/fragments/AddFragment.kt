@@ -19,54 +19,55 @@ import com.hfad.dictionary.viewmodel.MainViewModel
 class AddFragment : Fragment() {
 
     val args by navArgs<AddFragmentArgs>()
+
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
-    private val mMainViewModel: MainViewModel by viewModels {
+    private val sharedViewModel: SharedViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels {
         MainViewModelFactory(
             Repository(),
             requireActivity().application
         )
     }
-    private val mSharedViewModel: SharedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAddBinding.inflate(inflater, container, false)
         val view = binding.root
+
         binding.etTitle.setText(args.currentWord.word)
         binding.etDefinition.setText(args.currentWord.definition)
         binding.etExample.setText(args.currentWord.example)
+
         binding.btnAddCard.setOnClickListener {
             addCardToDb()
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
-        binding.etExample.setText(args.currentWord.example)
-
-        binding.spStatus.onItemSelectedListener = mSharedViewModel.listener
+        binding.spStatus.onItemSelectedListener = sharedViewModel.listener
 
         return view
     }
 
     private fun addCardToDb() {
-        val mWord = binding.etTitle.text.toString()
-        val mStatus = binding.spStatus.selectedItem.toString()
+        val word = binding.etTitle.text.toString()
+        val status = binding.spStatus.selectedItem.toString()
         val partOfSpeech = args.currentWord.partsOfSpeech
-        val mDefinition = binding.etDefinition.text.toString()
-        val mExample = binding.etExample.text.toString()
-        val validation = mSharedViewModel.verifyDataFromUser(mWord, mDefinition)
+        val definition = binding.etDefinition.text.toString()
+        val example = binding.etExample.text.toString()
+        val validation = sharedViewModel.verifyDataFromUser(word, definition)
 
         if (validation) {
             val newCard = Card(
                 0,
-                mWord,
-                mSharedViewModel.parseStatus(mStatus),
+                word,
+                sharedViewModel.parseStatus(status),
                 partOfSpeech,
-                mDefinition,
-                mExample
+                definition,
+                example
             )
-            mMainViewModel.insertData(newCard)
+            mainViewModel.insertData(newCard)
         } else {
             Toast.makeText(requireContext(), "Please, fill out all the fields!", Toast.LENGTH_SHORT)
                 .show()

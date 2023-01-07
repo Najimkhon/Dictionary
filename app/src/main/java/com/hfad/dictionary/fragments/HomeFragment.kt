@@ -39,7 +39,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
 
         binding.searchView.setOnQueryTextListener(this)
         binding.tvSeeAllWords.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_wordFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_listFragment)
         }
         binding.btnSeeAll.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_listFragment)

@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -121,13 +120,13 @@ class SavedWordsFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     private fun searchDatabase(query: String?) {
-        var searchQuery = "%$query%"
+        val searchQuery = "%$query%"
 
-        viewModel.searchThroughDatabase(searchQuery).observe(this, Observer { list ->
+        viewModel.searchThroughDatabase(searchQuery).observe(this) { list ->
             list?.let {
                 adapter.setCardData(it)
             }
-        })
+        }
     }
 
     private fun deleteAll() {
