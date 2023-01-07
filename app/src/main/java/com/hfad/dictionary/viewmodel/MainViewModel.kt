@@ -6,6 +6,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.hfad.dictionary.models.api.DefinitionResponse
+import com.hfad.dictionary.models.api.ExamplesResponse
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
 import com.hfad.dictionary.repository.NetworkRepository
@@ -40,40 +42,10 @@ class MainViewModel(application: Application) :
 
             if (definitionsResponse == null || examplesResponse == null) {
                 // we had an issue with network
+            } else {
+                val cardList = generateWordCardList(word, definitionsResponse, examplesResponse)
+                wordResultListLiveData.postValue(cardList)
             }
-
-            // add two lists and make a new one here
-
-            val definitionsList = definitionsResponse?.definitions ?: emptyList()
-            val examplesList = examplesResponse?.examples ?: emptyList()
-
-            val cardList = arrayListOf<Card>()
-            for (i in definitionsList.indices) {
-                if (i < examplesList.size) {
-                    cardList.add(
-                        Card(
-                            0,
-                            word,
-                            Status.New,
-                            definitionsList[i].partOfSpeech,
-                            definitionsList[i].definition,
-                            examplesList[i]
-                        )
-                    )
-                } else {
-                    cardList.add(
-                        Card(
-                            0,
-                            word,
-                            Status.New,
-                            definitionsList[i].partOfSpeech,
-                            definitionsList[i].definition,
-                            "No example available. Please, write your own!"
-                        )
-                    )
-                }
-            }
-            wordResultListLiveData.postValue(cardList)
         }
     }
 
@@ -105,6 +77,38 @@ class MainViewModel(application: Application) :
 
     fun searchThroughDatabase(query: String): LiveData<List<Card>> {
         return roomRepository.searchThroughDatabase(query)
+    }
+
+    private fun generateWordCardList(word: String, definitionsResponse: DefinitionResponse, examplesResponse: ExamplesResponse): List<Card> {
+        val definitionsList = definitionsResponse.definitions
+        val examplesList = examplesResponse.examples
+
+        val cardList = arrayListOf<Card>()
+        for (i in definitionsList.indices) {
+            if (i < examplesList.size) {
+                cardList.add(
+                    Card(
+                        0,
+                        word,
+                        Status.New,
+                        definitionsList[i].partOfSpeech,
+                        definitionsList[i].definition,
+                        examplesList[i]
+                    )
+                )
+            } else {
+                cardList.add(
+                    Card(
+                        0,
+                        word,
+                        Status.New,
+                        definitionsList[i].partOfSpeech,
+                        definitionsList[i].definition,
+                        "No example available. Please, write your own!"
+                    )
+                )
+            }
+        }
     }
 
 }
