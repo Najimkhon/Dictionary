@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.hfad.dictionary.R
 import com.hfad.dictionary.ViewModel.ViewModel
 import com.hfad.dictionary.ViewModelFactory
@@ -18,18 +18,17 @@ import com.hfad.dictionary.databinding.FragmentHomeBinding
 import com.hfad.dictionary.repository.Repository
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
-
 class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val adapter: HomeAdapter by lazy { HomeAdapter() }
-    private val mViewModel: ViewModel by viewModels() {
+    private val viewModel: ViewModel by viewModels {
         ViewModelFactory(
             Repository(),
             requireActivity().application
         )
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,33 +36,22 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
+
         binding.searchView.setOnQueryTextListener(this)
-        binding.tvSeeAllwords.setOnClickListener {
+        binding.tvSeeAllWords.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_wordFragment)
         }
         binding.btnSeeAll.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_listFragment)
         }
-        mViewModel.sortByNew.observe(viewLifecycleOwner) {
+        viewModel.sortByNew.observe(viewLifecycleOwner) {
             adapter.setCardData(it)
             binding.tvLearntWords.text = it.size.toString()
-
         }
 
         setupRecyclerView()
 
         return view
-
-
-    }
-
-    private fun setupRecyclerView() {
-        val recyclerView = binding.rvRecents
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager =
-            StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
-        recyclerView.itemAnimator = SlideInUpAnimator().apply { addDuration = 300 }
-
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -83,5 +71,11 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         _binding = null
     }
 
-
+    private fun setupRecyclerView() {
+        val recyclerView = binding.rvRecents
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        recyclerView.itemAnimator = SlideInUpAnimator().apply { addDuration = 300 }
+    }
 }

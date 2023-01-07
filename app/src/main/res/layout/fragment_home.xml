@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_bg"
     android:padding="4dp"
     tools:context=".fragments.HomeFragment">
 
@@ -18,12 +18,12 @@
         android:background="@drawable/search_background"
         android:elevation="2dp"
         android:paddingRight="32dp"
-        android:paddingBottom="8dp"
         app:iconifiedByDefault="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:queryHint="Search..." />
+        app:layout_constraintTop_toBottomOf="@+id/ivAvatar"
+        app:queryBackground="@null"
+        app:queryHint="Search..."/>
 
     <TextView
         android:id="@+id/tvHello"
@@ -31,14 +31,14 @@
         android:layout_height="wrap_content"
         android:text="Hi, John Doe"
         android:textColor="@color/dark_grey"
-        android:textSize="22dp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/searchView"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintLeft_toRightOf="@+id/imageView"
+        app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintTop_toTopOf="@+id/ivAvatar"
+        app:layout_constraintVertical_bias="0.4"/>
 
     <TextView
         android:id="@+id/tvLabel"
@@ -47,21 +47,21 @@
         android:layout_marginEnd="16dp"
         android:text="What are you looking for?"
         android:textColor="@color/light_grey"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintLeft_toRightOf="@+id/imageView"
+        app:layout_constraintLeft_toRightOf="@+id/ivAvatar"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvHello" />
+        app:layout_constraintTop_toBottomOf="@+id/tvHello"/>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivAvatar"
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:src="@drawable/profileimage"
+        android:src="@drawable/img_profile"
         app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/recentWords"
@@ -87,53 +87,48 @@
         android:elevation="4dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recentWords" />
+        app:layout_constraintTop_toBottomOf="@id/recentWords"/>
 
 
     <TextView
-        android:id="@+id/tvSeeAllwords"
+        android:id="@+id/tvSeeAllWords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="22dp"
+        android:layout_marginLeft="16sp"
         android:text="See recently added words"
         android:textColor="@color/dark_grey"
         android:textSize="18sp"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintBottom_toBottomOf="@id/btnSeeAll"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvRecents" />
+        app:layout_constraintRight_toLeftOf="@id/btnSeeAll"
+        app:layout_constraintTop_toTopOf="@id/btnSeeAll"/>
 
     <ImageView
         android:id="@+id/btnSeeAll"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginLeft="6dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="20dp"
         android:background="@color/white"
         android:src="@drawable/ic_baseline_arrow_circle_right_24"
         android:textColor="@color/dark_grey"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintLeft_toRightOf="@id/tvSeeAllwords"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvRecents" />
+        app:layout_constraintLeft_toRightOf="@id/tvSeeAllWords"
+        app:layout_constraintTop_toBottomOf="@+id/rvRecents"/>
 
     <TextView
         android:id="@+id/tvStats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="22dp"
-        android:text="Your stats:"
+        android:text="Your stats"
         android:textColor="@color/dark_grey"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSeeAllwords"
-
-
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tvSeeAllWords"/>
 
     <TextView
         android:id="@+id/tvLearntWords"
@@ -148,7 +143,7 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvStats" />
+        app:layout_constraintTop_toBottomOf="@+id/tvStats"/>
 
     <TextView
         android:id="@+id/tvStatsLabel"
@@ -156,9 +151,9 @@
         android:layout_height="wrap_content"
         android:text="Words Learnt"
         android:textColor="@color/dark_grey"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLearntWords" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLearntWords"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
