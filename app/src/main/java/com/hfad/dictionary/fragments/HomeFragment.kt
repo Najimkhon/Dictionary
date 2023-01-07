@@ -44,7 +44,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.btnSeeAll.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_listFragment)
         }
-        mViewModel.getAllData.observe(viewLifecycleOwner) {
+        mViewModel.sortByNew.observe(viewLifecycleOwner) {
             adapter.setCardData(it)
             binding.tvLearntWords.text = it.size.toString()
 
