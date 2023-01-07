@@ -16,7 +16,6 @@ import com.hfad.dictionary.R
 import com.hfad.dictionary.adapters.SavedWordsAdapter
 import com.hfad.dictionary.databinding.FragmentSavedWordsBinding
 import com.hfad.dictionary.models.card.Card
-import com.hfad.dictionary.repository.Repository
 import com.hfad.dictionary.utils.SwipeToDelete
 import com.hfad.dictionary.viewmodel.MainViewModel
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
@@ -28,7 +27,6 @@ class SavedWordsFragment : Fragment(), SearchView.OnQueryTextListener {
     private val adapter: SavedWordsAdapter by lazy { SavedWordsAdapter() }
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(
-            Repository(),
             requireActivity().application
         )
     }
@@ -63,7 +61,7 @@ class SavedWordsFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun swipeToDelete(recyclerView: RecyclerView) {
         val swipeToDeleteCallback = object : SwipeToDelete() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val itemToDelete = adapter.mCardList[viewHolder.adapterPosition]
+                val itemToDelete = adapter.cardList[viewHolder.adapterPosition]
                 viewModel.deleteCard(itemToDelete)
                 adapter.notifyItemChanged(viewHolder.adapterPosition)
                 restoreDeletedData(viewHolder.itemView, itemToDelete, viewHolder.adapterPosition)

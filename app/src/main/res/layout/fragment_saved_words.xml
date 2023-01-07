@@ -11,6 +11,8 @@
         android:id="@+id/rvCardList"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:clipToPadding="false"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"

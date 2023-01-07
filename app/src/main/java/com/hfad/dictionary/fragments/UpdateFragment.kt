@@ -12,8 +12,8 @@ import androidx.navigation.fragment.navArgs
 import com.hfad.dictionary.MainViewModelFactory
 import com.hfad.dictionary.databinding.FragmentUpdateBinding
 import com.hfad.dictionary.models.card.Card
-import com.hfad.dictionary.repository.Repository
 import com.hfad.dictionary.viewmodel.MainViewModel
+import com.hfad.dictionary.viewmodel.SharedViewModel
 
 class UpdateFragment : Fragment() {
 
@@ -23,7 +23,6 @@ class UpdateFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by viewModels()
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(
-            Repository(),
             requireActivity().application
         )
     }

@@ -6,56 +6,74 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.hfad.dictionary.models.api.ExamplesResponse
-import com.hfad.dictionary.models.api.SearchResponse
 import com.hfad.dictionary.models.card.Card
-import com.hfad.dictionary.repository.Repository
+import com.hfad.dictionary.models.card.Status
+import com.hfad.dictionary.repository.NetworkRepository
 import com.hfad.dictionary.repository.RoomRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
-class MainViewModel(private val repository: Repository, application: Application) :
+class MainViewModel(application: Application) :
     AndroidViewModel(application) {
 
-    private val cardDao = CardDatabase.getDatabase(
-        application
-    ).cardDao()
-    private val roomRepository: RoomRepository
-    val getAllData: LiveData<List<Card>>
-    val sortByNew: LiveData<List<Card>>
-    val sortByRepeat: LiveData<List<Card>>
-    val sortByLearned: LiveData<List<Card>>
+    // room
+    private val cardDao = CardDatabase.getDatabase(application).cardDao()
+    private val roomRepository: RoomRepository = RoomRepository(cardDao)
+    val getAllData: LiveData<List<Card>> = roomRepository.getAllData
+    val sortByNew: LiveData<List<Card>> = roomRepository.sortByNew
+    val sortByRepeat: LiveData<List<Card>> = roomRepository.sortByRepeat
+    val sortByLearned: LiveData<List<Card>> = roomRepository.sortByLearned
 
-    init {
-        roomRepository = RoomRepository(cardDao)
-        getAllData = roomRepository.getAllData
-        sortByNew = roomRepository.sortByNew
-        sortByLearned = roomRepository.sortByLearned
-        sortByRepeat = roomRepository.sortByRepeat
-    }
+    //api
+    private val networkRepository: NetworkRepository = NetworkRepository()
+    val wordResultListLiveData: MutableLiveData<List<Card>> = MutableLiveData()
 
     init {
         println("hop: ViewModel is created")
     }
 
-    //api
-    val myResponse: MutableLiveData<Response<SearchResponse>> = MutableLiveData()
-    val myExamplesResponse: MutableLiveData<Response<ExamplesResponse>> = MutableLiveData()
+    // todo: ui state with viewmodel communication for network error, empty list...
+    fun searchForWord(word: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val definitionsResponse = networkRepository.fetchDefinitions(word)
+            val examplesResponse = networkRepository.fetchExamples(word) // low priority
 
-    fun getData(word: String) {
-        viewModelScope.launch {
-            val response = repository.getDefinition(word)
-            myResponse.value = response
-            Log.d("resp", response.isSuccessful.toString())
-        }
-    }
+            if (definitionsResponse == null || examplesResponse == null) {
+                // we had an issue with network
+            }
 
-    fun getExamples(word: String) {
-        viewModelScope.launch {
-            val response = repository.getExamples(word)
-            myExamplesResponse.value = response
-            Log.d("respEx", response.isSuccessful.toString())
+            // add two lists and make a new one here
+
+            val definitionsList = definitionsResponse?.definitions ?: emptyList()
+            val examplesList = examplesResponse?.examples ?: emptyList()
+
+            val cardList = arrayListOf<Card>()
+            for (i in definitionsList.indices) {
+                if (i < examplesList.size) {
+                    cardList.add(
+                        Card(
+                            0,
+                            word,
+                            Status.New,
+                            definitionsList[i].partOfSpeech,
+                            definitionsList[i].definition,
+                            examplesList[i]
+                        )
+                    )
+                } else {
+                    cardList.add(
+                        Card(
+                            0,
+                            word,
+                            Status.New,
+                            definitionsList[i].partOfSpeech,
+                            definitionsList[i].definition,
+                            "No example available. Please, write your own!"
+                        )
+                    )
+                }
+            }
+            wordResultListLiveData.postValue(cardList)
         }
     }
 

@@ -1,11 +1,11 @@
 package com.hfad.dictionary.diffutils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.hfad.dictionary.models.api.Definition
+import com.hfad.dictionary.models.card.Card
 
-class WordDiffutil(
-    private val oldList: List<Definition>,
-    private val newList: List<Definition>
+class WordDiffUtil(
+    private val oldList: List<Card>,
+    private val newList: List<Card>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
@@ -21,8 +21,10 @@ class WordDiffutil(
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].definition == newList[newItemPosition].definition
-                && oldList[oldItemPosition].partOfSpeech == newList[newItemPosition].partOfSpeech
+        return oldList[oldItemPosition].status == newList[newItemPosition].status
+                && oldList[oldItemPosition].partsOfSpeech == newList[newItemPosition].partsOfSpeech
+                && oldList[oldItemPosition].definition == newList[newItemPosition].definition
+                && oldList[oldItemPosition].example == newList[newItemPosition].example
 
     }
 }

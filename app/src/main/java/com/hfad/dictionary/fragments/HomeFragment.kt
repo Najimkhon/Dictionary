@@ -14,7 +14,6 @@ import com.hfad.dictionary.MainViewModelFactory
 import com.hfad.dictionary.R
 import com.hfad.dictionary.adapters.HomeAdapter
 import com.hfad.dictionary.databinding.FragmentHomeBinding
-import com.hfad.dictionary.repository.Repository
 import com.hfad.dictionary.viewmodel.MainViewModel
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
@@ -25,7 +24,6 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
     private val adapter: HomeAdapter by lazy { HomeAdapter() }
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(
-            Repository(),
             requireActivity().application
         )
     }

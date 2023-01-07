@@ -15,7 +15,7 @@ import com.hfad.dictionary.models.card.Status
 
 open class SavedWordsAdapter : RecyclerView.Adapter<SavedWordsAdapter.ListViewHolder>() {
 
-    var mCardList = emptyList<Card>()
+    var cardList = emptyList<Card>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         return ListViewHolder(
@@ -24,10 +24,11 @@ open class SavedWordsAdapter : RecyclerView.Adapter<SavedWordsAdapter.ListViewHo
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.cardItemLayoutBinding.tvWord.text = mCardList[position].word
-        holder.cardItemLayoutBinding.tvDefinition.text = mCardList[position].definition
-        holder.cardItemLayoutBinding.tvExample.text = mCardList[position].example
-        when (mCardList[position].status) {
+        val card = cardList[position]
+        holder.cardItemLayoutBinding.tvWord.text = card.word
+        holder.cardItemLayoutBinding.tvDefinition.text = card.definition
+        holder.cardItemLayoutBinding.tvExample.text = card.example
+        when (card.status) {
             Status.New -> holder.cardItemLayoutBinding.cvStatus.setCardBackgroundColor(
                 ContextCompat.getColor(
                     holder.cardItemLayoutBinding.root.context,
@@ -49,19 +50,19 @@ open class SavedWordsAdapter : RecyclerView.Adapter<SavedWordsAdapter.ListViewHo
         }
         holder.cardItemLayoutBinding.itemView.setOnClickListener {
             val action =
-                SavedWordsFragmentDirections.actionListFragmentToUpdateFragment(mCardList[position])
+                SavedWordsFragmentDirections.actionListFragmentToUpdateFragment(card)
             holder.cardItemLayoutBinding.itemView.findNavController().navigate(action)
         }
     }
 
     override fun getItemCount(): Int {
-        return mCardList.size
+        return cardList.size
     }
 
     fun setCardData(cardList: List<Card>) {
-        val cardDiffUtil = CardDiffUtil(mCardList, cardList)
+        val cardDiffUtil = CardDiffUtil(this.cardList, cardList)
         val cardDiffResult = DiffUtil.calculateDiff(cardDiffUtil)
-        this.mCardList = cardList
+        this.cardList = cardList
         cardDiffResult.dispatchUpdatesTo(this)
     }
 

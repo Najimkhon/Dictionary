@@ -1,7 +1,7 @@
 package com.hfad.dictionary.api
 
 import com.hfad.dictionary.models.api.ExamplesResponse
-import com.hfad.dictionary.models.api.SearchResponse
+import com.hfad.dictionary.models.api.DefinitionResponse
 import com.hfad.dictionary.utils.Constants
 import retrofit2.Response
 import retrofit2.http.GET
@@ -17,7 +17,7 @@ interface DictionaryResponseInterface {
     @GET("words/{word}/${Constants.DEFINITION_REQUEST}")
     suspend fun getDefinition(
         @Path("word") word: String
-    ): Response<SearchResponse>
+    ): Response<DefinitionResponse>
 
     @Headers(
         "${Constants.KEY_HEADER_TITLE}:${Constants.API_KEY}",

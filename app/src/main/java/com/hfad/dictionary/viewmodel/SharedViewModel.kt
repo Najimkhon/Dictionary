@@ -1,4 +1,4 @@
-package com.hfad.dictionary.fragments
+package com.hfad.dictionary.viewmodel
 
 import android.app.Application
 import android.text.TextUtils

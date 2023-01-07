@@ -13,8 +13,8 @@ import com.hfad.dictionary.MainViewModelFactory
 import com.hfad.dictionary.R
 import com.hfad.dictionary.databinding.FragmentAddBinding
 import com.hfad.dictionary.models.card.Card
-import com.hfad.dictionary.repository.Repository
 import com.hfad.dictionary.viewmodel.MainViewModel
+import com.hfad.dictionary.viewmodel.SharedViewModel
 
 class AddFragment : Fragment() {
 
@@ -25,7 +25,6 @@ class AddFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by viewModels()
     private val mainViewModel: MainViewModel by viewModels {
         MainViewModelFactory(
-            Repository(),
             requireActivity().application
         )
     }
