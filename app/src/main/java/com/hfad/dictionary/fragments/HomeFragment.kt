@@ -59,7 +59,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener, VpItemLayout.On
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         if (query != null) {
-            val action = HomeFragmentDirections.actionHomeFragmentToWordFragment(query)
+            val action = HomeFragmentDirections.actionHomeFragmentToWordFragment(query.trim())
             findNavController().navigate(action)
         }
         return true
