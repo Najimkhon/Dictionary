@@ -1,6 +1,8 @@
 package com.hfad.dictionary.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
@@ -13,46 +15,17 @@ import com.hfad.dictionary.fragments.SavedWordsFragmentDirections
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
 
-open class SavedWordsAdapter : RecyclerView.Adapter<SavedWordsAdapter.ListViewHolder>() {
+open class SavedWordsAdapter(val context: Context, private val listener: SavedWordsItemLayout.OnItemClickListener) : RecyclerView.Adapter<SavedWordsAdapter.SavedWordsViewHolder>() {
 
     var cardList = emptyList<Card>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        return ListViewHolder(
-            CardItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedWordsViewHolder {
+        return SavedWordsViewHolder(SavedWordsItemLayout(context, listener))
     }
 
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SavedWordsViewHolder, position: Int) {
         val card = cardList[position]
-        holder.cardItemLayoutBinding.tvWord.text = card.word
-        holder.cardItemLayoutBinding.tvDefinition.text = card.definition
-        holder.cardItemLayoutBinding.tvExample.text = card.example
-        when (card.status) {
-            Status.New -> holder.cardItemLayoutBinding.cvStatus.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    holder.cardItemLayoutBinding.root.context,
-                    R.color.red
-                )
-            )
-            Status.Repeat -> holder.cardItemLayoutBinding.cvStatus.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    holder.cardItemLayoutBinding.root.context,
-                    R.color.yellow
-                )
-            )
-            Status.Learned -> holder.cardItemLayoutBinding.cvStatus.setCardBackgroundColor(
-                ContextCompat.getColor(
-                    holder.cardItemLayoutBinding.root.context,
-                    R.color.green
-                )
-            )
-        }
-        holder.cardItemLayoutBinding.itemView.setOnClickListener {
-            val action =
-                SavedWordsFragmentDirections.actionListFragmentToUpdateFragment(card)
-            holder.cardItemLayoutBinding.itemView.findNavController().navigate(action)
-        }
+        holder.layout.fillContent(card)
     }
 
     override fun getItemCount(): Int {
@@ -66,7 +39,8 @@ open class SavedWordsAdapter : RecyclerView.Adapter<SavedWordsAdapter.ListViewHo
         cardDiffResult.dispatchUpdatesTo(this)
     }
 
-    inner class ListViewHolder(val cardItemLayoutBinding: CardItemLayoutBinding) :
-        RecyclerView.ViewHolder(cardItemLayoutBinding.root)
-
+    inner class SavedWordsViewHolder(itemView: View) :
+        RecyclerView.ViewHolder(itemView){
+        val layout = itemView as SavedWordsItemLayout
+        }
 }

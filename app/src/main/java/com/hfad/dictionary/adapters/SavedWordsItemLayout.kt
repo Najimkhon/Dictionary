@@ -6,23 +6,20 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import com.hfad.dictionary.R
-import com.hfad.dictionary.databinding.VpItemHolderBinding
+import com.hfad.dictionary.databinding.CardItemLayoutBinding
+import com.hfad.dictionary.fragments.SavedWordsFragmentDirections
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
 
-class VpItemLayout(context: Context, private val listener: OnVpItemClickListener):ConstraintLayout(context) {
-
-    private val binding = VpItemHolderBinding.inflate(LayoutInflater.from(context), this, true)
+class SavedWordsItemLayout(context: Context, private val listener: OnItemClickListener):
+    ConstraintLayout(context)  {
+    private val binding = CardItemLayoutBinding.inflate(LayoutInflater.from(context), this, true)
     private lateinit var currentWord: Card
     init {
-        layoutParams = RelativeLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
-        )
-
         binding.itemView.setOnClickListener{
-            listener.onVpItemClickListener(currentWord)
+            listener.onItemClicked(currentWord)
         }
     }
 
@@ -52,11 +49,15 @@ class VpItemLayout(context: Context, private val listener: OnVpItemClickListener
                 )
             )
         }
-
+        binding.itemView.setOnClickListener {
+            val action =
+                SavedWordsFragmentDirections.actionListFragmentToUpdateFragment(currentWord)
+            binding.itemView.findNavController().navigate(action)
+        }
+    }
+    interface OnItemClickListener{
+        fun onItemClicked(clickedItem: Card)
     }
 
 
-    interface OnVpItemClickListener{
-        fun onVpItemClickListener(clickedItem: Card)
-    }
 }

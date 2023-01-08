@@ -14,17 +14,18 @@ import com.google.android.material.snackbar.Snackbar
 import com.hfad.dictionary.MainViewModelFactory
 import com.hfad.dictionary.R
 import com.hfad.dictionary.adapters.SavedWordsAdapter
+import com.hfad.dictionary.adapters.SavedWordsItemLayout
 import com.hfad.dictionary.databinding.FragmentSavedWordsBinding
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.utils.SwipeToDelete
 import com.hfad.dictionary.viewmodel.MainViewModel
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
-class SavedWordsFragment : Fragment(), SearchView.OnQueryTextListener {
+class SavedWordsFragment : Fragment(), SearchView.OnQueryTextListener, SavedWordsItemLayout.OnItemClickListener {
 
     private var _binding: FragmentSavedWordsBinding? = null
     private val binding get() = _binding!!
-    private val adapter: SavedWordsAdapter by lazy { SavedWordsAdapter() }
+    private val adapter: SavedWordsAdapter by lazy { SavedWordsAdapter(requireContext(), this) }
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(
             requireActivity().application
@@ -34,7 +35,7 @@ class SavedWordsFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSavedWordsBinding.inflate(inflater, container, false)
         val view = binding.root
 
@@ -137,5 +138,9 @@ class SavedWordsFragment : Fragment(), SearchView.OnQueryTextListener {
         builder.setTitle("Delete All Records?")
         builder.setMessage("Are you sure you want to delete all records?")
         builder.create().show()
+    }
+
+    override fun onItemClicked(clickedItem: Card) {
+        TODO("Not yet implemented")
     }
 }
