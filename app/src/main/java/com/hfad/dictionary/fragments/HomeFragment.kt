@@ -47,6 +47,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
             binding.tvLearntWords.text = it.size.toString()
         }
 
+
         setupRecyclerView()
 
         return view
@@ -70,10 +71,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     private fun setupRecyclerView() {
-        val recyclerView = binding.rvRecents
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        recyclerView.itemAnimator = SlideInUpAnimator().apply { addDuration = 300 }
+        val viewPager = binding.vpRecents
+        viewPager.adapter = adapter
     }
 }

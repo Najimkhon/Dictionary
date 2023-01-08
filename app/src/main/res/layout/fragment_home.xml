@@ -78,11 +78,11 @@
 
         />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRecents"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpRecents"
         android:layout_width="0dp"
         android:layout_height="180dp"
-        android:layout_margin="16dp"
+        android:clipToPadding="false"
         android:elevation="4dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -114,7 +114,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@id/tvSeeAllWords"
-        app:layout_constraintTop_toBottomOf="@+id/rvRecents"/>
+        app:layout_constraintTop_toBottomOf="@+id/vpRecents"/>
 
     <TextView
         android:id="@+id/tvStats"

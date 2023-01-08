@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hfad.dictionary.R
 import com.hfad.dictionary.databinding.CardItemLayoutBinding
+import com.hfad.dictionary.databinding.VpItemHolderBinding
 import com.hfad.dictionary.diffutils.CardDiffUtil
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
@@ -17,30 +18,30 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         return HomeViewHolder(
-            CardItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            VpItemHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        holder.cardItemLayoutBinding.tvWord.text = mCardList[position].word
-        holder.cardItemLayoutBinding.tvDefinition.text = mCardList[position].definition
-        holder.cardItemLayoutBinding.tvExample.text = mCardList[position].example
+        holder.vpItemHolderBinding.tvWord.text = mCardList[position].word
+        holder.vpItemHolderBinding.tvDefinition.text = mCardList[position].definition
+        holder.vpItemHolderBinding.tvExample.text = mCardList[position].example
         when (mCardList[position].status) {
-            Status.New -> holder.cardItemLayoutBinding.cvStatus.setCardBackgroundColor(
+            Status.New -> holder.vpItemHolderBinding.cvStatus.setCardBackgroundColor(
                 ContextCompat.getColor(
-                    holder.cardItemLayoutBinding.root.context,
+                    holder.vpItemHolderBinding.root.context,
                     R.color.red
                 )
             )
-            Status.Repeat -> holder.cardItemLayoutBinding.cvStatus.setCardBackgroundColor(
+            Status.Repeat -> holder.vpItemHolderBinding.cvStatus.setCardBackgroundColor(
                 ContextCompat.getColor(
-                    holder.cardItemLayoutBinding.root.context,
+                    holder.vpItemHolderBinding.root.context,
                     R.color.yellow
                 )
             )
-            Status.Learned -> holder.cardItemLayoutBinding.cvStatus.setCardBackgroundColor(
+            Status.Learned -> holder.vpItemHolderBinding.cvStatus.setCardBackgroundColor(
                 ContextCompat.getColor(
-                    holder.cardItemLayoutBinding.root.context,
+                    holder.vpItemHolderBinding.root.context,
                     R.color.green
                 )
             )
@@ -58,6 +59,6 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
         cardDiffResult.dispatchUpdatesTo(this)
     }
 
-    inner class HomeViewHolder(val cardItemLayoutBinding: CardItemLayoutBinding) :
-        RecyclerView.ViewHolder(cardItemLayoutBinding.root)
+    inner class HomeViewHolder(val vpItemHolderBinding: VpItemHolderBinding) :
+        RecyclerView.ViewHolder(vpItemHolderBinding.root)
 }
