@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hfad.dictionary.MainViewModelFactory
+import com.hfad.dictionary.R
 import com.hfad.dictionary.adapters.SearchResultAdapter
 import com.hfad.dictionary.adapters.SearchResultItemLayout
 import com.hfad.dictionary.databinding.FragmentSearchResultBinding
@@ -21,7 +22,6 @@ import jp.wasabeef.recyclerview.animators.LandingAnimator
 class SearchResultFragment : Fragment(), SearchResultItemLayout.OnItemClickListener {
 
     private val args by navArgs<SearchResultFragmentArgs>()
-
     private var _binding: FragmentSearchResultBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MainViewModel by activityViewModels {
@@ -40,7 +40,12 @@ class SearchResultFragment : Fragment(), SearchResultItemLayout.OnItemClickListe
         val view = binding.root
 
         setupRecyclerView()
+        setObservers()
+        viewModel.searchForWord(args.searchWord)
 
+        return view
+    }
+    private fun setObservers(){
         viewModel.wordResultListLiveData.observe(viewLifecycleOwner) {
             adapter.setData(it)
         }
@@ -55,7 +60,7 @@ class SearchResultFragment : Fragment(), SearchResultItemLayout.OnItemClickListe
                     binding.rvWords.isGone = true
                     binding.pbLoading.isGone = true
                     binding.tvMessage.isVisible = true
-                    binding.tvMessage.text = "We couldn't find any results"
+                    binding.tvMessage.text = getString(R.string.no_data_text)
                 }
                 MainViewModel.UiState.Success -> {
                     binding.tvMessage.isGone = true
@@ -64,8 +69,6 @@ class SearchResultFragment : Fragment(), SearchResultItemLayout.OnItemClickListe
                 }
             }
         }
-        viewModel.searchForWord(args.searchWord)
-        return view
     }
 
     private fun setupRecyclerView() {

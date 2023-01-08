@@ -34,6 +34,12 @@ class UpdateFragment : Fragment() {
         _binding = FragmentUpdateBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        assignObjects()
+
+        return view
+    }
+
+    private fun assignObjects(){
         binding.etTitle.setText(args.currentWord.word)
         binding.etDefinition.setText(args.currentWord.definition)
         binding.etExample.setText(args.currentWord.example)
@@ -44,8 +50,6 @@ class UpdateFragment : Fragment() {
 
         binding.spStatus.setSelection(sharedViewModel.parseStatusToInt(args.currentWord.status))
         binding.spStatus.onItemSelectedListener = sharedViewModel.listener
-
-        return view
     }
 
     private fun updateCard() {

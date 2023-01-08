@@ -37,21 +37,8 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener, VpItemLayout.On
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        binding.searchView.setOnQueryTextListener(this)
-
-        binding.tvSeeAllWords.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_listFragment)
-        }
-        binding.btnSeeAll.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_listFragment)
-        }
-        viewModel.sortByNew.observe(viewLifecycleOwner) {
-            adapter.setCardData(it)
-            binding.tvLearntWords.text = it.size.toString()
-        }
-
-
-
+        assignObjects()
+        setObservers()
         setupRecyclerView()
 
         return view
@@ -74,14 +61,34 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener, VpItemLayout.On
         _binding = null
     }
 
-    private fun setupRecyclerView() {
-        val viewPager = binding.vpRecents
-        viewPager.adapter = adapter
-    }
-
     override fun onVpItemClickListener(clickedItem: Card) {
         val action =
             HomeFragmentDirections.actionHomeFragmentToUpdateFragment(clickedItem)
         findNavController().navigate(action)
     }
+
+    private fun setupRecyclerView() {
+        val viewPager = binding.vpRecents
+        viewPager.adapter = adapter
+    }
+
+    private fun assignObjects(){
+        binding.searchView.setOnQueryTextListener(this)
+
+        binding.tvSeeAllWords.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_listFragment)
+        }
+        binding.btnSeeAll.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_listFragment)
+        }
+    }
+
+    private fun setObservers(){
+        viewModel.sortByNew.observe(viewLifecycleOwner) {
+            adapter.setCardData(it)
+            binding.tvLearntWords.text = it.size.toString()
+        }
+    }
+
+
 }

@@ -36,17 +36,25 @@ class AddFragment : Fragment() {
         _binding = FragmentAddBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        assignObjects()
+        setListeners()
+
+
+        return view
+    }
+
+    private fun assignObjects() {
         binding.etTitle.setText(args.currentWord.word)
         binding.etDefinition.setText(args.currentWord.definition)
         binding.etExample.setText(args.currentWord.example)
+    }
 
+    private fun setListeners() {
         binding.btnAddCard.setOnClickListener {
             addCardToDb()
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
         binding.spStatus.onItemSelectedListener = sharedViewModel.listener
-
-        return view
     }
 
     private fun addCardToDb() {

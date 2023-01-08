@@ -40,9 +40,7 @@ class SavedWordsFragment : Fragment(), SearchView.OnQueryTextListener, SavedWord
         _binding = FragmentSavedWordsBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        viewModel.getAllData.observe(viewLifecycleOwner) {
-            adapter.setCardData(it)
-        }
+        setObservers()
 
         setupRecyclerView()
         setHasOptionsMenu(true)
@@ -58,6 +56,12 @@ class SavedWordsFragment : Fragment(), SearchView.OnQueryTextListener, SavedWord
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.itemAnimator = SlideInUpAnimator().apply { addDuration = 300 }
 
+    }
+
+    private fun setObservers(){
+        viewModel.getAllData.observe(viewLifecycleOwner) {
+            adapter.setCardData(it)
+        }
     }
 
     private fun swipeToDelete(recyclerView: RecyclerView) {
