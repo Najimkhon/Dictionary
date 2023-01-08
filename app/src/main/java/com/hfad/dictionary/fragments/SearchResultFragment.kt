@@ -12,11 +12,13 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hfad.dictionary.MainViewModelFactory
 import com.hfad.dictionary.adapters.SearchResultAdapter
+import com.hfad.dictionary.adapters.SearchResultItemLayout
 import com.hfad.dictionary.databinding.FragmentSearchResultBinding
+import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.viewmodel.MainViewModel
 import jp.wasabeef.recyclerview.animators.LandingAnimator
 
-class SearchResultFragment : Fragment() {
+class SearchResultFragment : Fragment(), SearchResultItemLayout.OnItemClickListener {
 
     val args by navArgs<SearchResultFragmentArgs>()
 
@@ -24,7 +26,7 @@ class SearchResultFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: MainViewModel
-    private val adapter: SearchResultAdapter by lazy { SearchResultAdapter() }
+    private val adapter: SearchResultAdapter by lazy { SearchResultAdapter(requireContext(), this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,6 +77,10 @@ class SearchResultFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemClicked(clickedItem: Card) {
+        TODO("Not yet implemented")
     }
 
 }

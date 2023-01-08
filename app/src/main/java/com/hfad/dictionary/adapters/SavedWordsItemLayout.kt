@@ -13,16 +13,17 @@ import com.hfad.dictionary.fragments.SavedWordsFragmentDirections
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
 
-class SavedWordsItemLayout(context: Context, private val listener: OnItemClickListener):
-    ConstraintLayout(context)  {
+class SavedWordsItemLayout(context: Context, private val listener: OnItemClickListener) :
+    RelativeLayout(context) {
+
     private val binding = CardItemLayoutBinding.inflate(LayoutInflater.from(context), this, true)
     private lateinit var currentWord: Card
+
     init {
-        binding.itemView.setOnClickListener{
+        binding.itemView.setOnClickListener {
             listener.onItemClicked(currentWord)
         }
     }
-
 
     fun fillContent(currentItem: Card) {
         currentWord = currentItem
@@ -55,7 +56,8 @@ class SavedWordsItemLayout(context: Context, private val listener: OnItemClickLi
             binding.itemView.findNavController().navigate(action)
         }
     }
-    interface OnItemClickListener{
+
+    interface OnItemClickListener {
         fun onItemClicked(clickedItem: Card)
     }
 

@@ -11,21 +11,22 @@ import com.hfad.dictionary.databinding.VpItemHolderBinding
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.models.card.Status
 
-class VpItemLayout(context: Context, private val listener: OnVpItemClickListener):ConstraintLayout(context) {
+class VpItemLayout(context: Context, private val listener: OnVpItemClickListener) :
+    ConstraintLayout(context) {
 
     private val binding = VpItemHolderBinding.inflate(LayoutInflater.from(context), this, true)
     private lateinit var currentWord: Card
+
     init {
         layoutParams = RelativeLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
 
-        binding.itemView.setOnClickListener{
+        binding.itemView.setOnClickListener {
             listener.onVpItemClickListener(currentWord)
         }
     }
-
 
     fun fillContent(currentItem: Card) {
         currentWord = currentItem
@@ -55,8 +56,7 @@ class VpItemLayout(context: Context, private val listener: OnVpItemClickListener
 
     }
 
-
-    interface OnVpItemClickListener{
+    interface OnVpItemClickListener {
         fun onVpItemClickListener(clickedItem: Card)
     }
 }
