@@ -7,21 +7,24 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hfad.dictionary.MainViewModelFactory
 import com.hfad.dictionary.R
 import com.hfad.dictionary.adapters.HomeAdapter
+import com.hfad.dictionary.adapters.VpItemLayout
 import com.hfad.dictionary.databinding.FragmentHomeBinding
+import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.viewmodel.MainViewModel
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
-class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
+class HomeFragment : Fragment(), SearchView.OnQueryTextListener, VpItemLayout.OnVpItemClickListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val adapter: HomeAdapter by lazy { HomeAdapter() }
+    private val adapter: HomeAdapter by lazy { HomeAdapter(requireContext(), this) }
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(
             requireActivity().application
@@ -36,6 +39,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         val view = binding.root
 
         binding.searchView.setOnQueryTextListener(this)
+
         binding.tvSeeAllWords.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_listFragment)
         }
@@ -46,6 +50,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
             adapter.setCardData(it)
             binding.tvLearntWords.text = it.size.toString()
         }
+
 
 
         setupRecyclerView()
@@ -73,5 +78,11 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun setupRecyclerView() {
         val viewPager = binding.vpRecents
         viewPager.adapter = adapter
+    }
+
+    override fun onVpItemClickListener(clickedItem: Card) {
+        val action =
+            HomeFragmentDirections.actionHomeFragmentToUpdateFragment(clickedItem)
+        findNavController().navigate(action)
     }
 }

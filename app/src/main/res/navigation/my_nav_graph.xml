@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_homeFragment_to_listFragment"
             app:destination="@id/savedWordsFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchResultFragment"
