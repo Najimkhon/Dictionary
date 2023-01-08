@@ -16,6 +16,9 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
 
     val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(false)
 
+    init {
+        println("hop: SharedViewModel is created")
+    }
     val listener: AdapterView.OnItemSelectedListener = object :
         AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

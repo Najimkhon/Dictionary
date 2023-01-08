@@ -1,19 +1,12 @@
 package com.hfad.dictionary.adapters
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.hfad.dictionary.R
-import com.hfad.dictionary.databinding.CardItemLayoutBinding
 import com.hfad.dictionary.diffutils.CardDiffUtil
-import com.hfad.dictionary.fragments.SavedWordsFragmentDirections
 import com.hfad.dictionary.models.card.Card
-import com.hfad.dictionary.models.card.Status
 
 open class SavedWordsAdapter(val context: Context, private val listener: SavedWordsItemLayout.OnItemClickListener) : RecyclerView.Adapter<SavedWordsAdapter.SavedWordsViewHolder>() {
 

@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +27,7 @@ class SavedWordsFragment : Fragment(), SearchView.OnQueryTextListener, SavedWord
     private var _binding: FragmentSavedWordsBinding? = null
     private val binding get() = _binding!!
     private val adapter: SavedWordsAdapter by lazy { SavedWordsAdapter(requireContext(), this) }
-    private val viewModel: MainViewModel by viewModels {
+    private val viewModel: MainViewModel by activityViewModels {
         MainViewModelFactory(
             requireActivity().application
         )

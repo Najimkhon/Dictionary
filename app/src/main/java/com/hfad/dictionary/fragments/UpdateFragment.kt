@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.hfad.dictionary.MainViewModelFactory
@@ -17,11 +17,11 @@ import com.hfad.dictionary.viewmodel.SharedViewModel
 
 class UpdateFragment : Fragment() {
 
-    val args by navArgs<UpdateFragmentArgs>()
+    private val args by navArgs<UpdateFragmentArgs>()
     private var _binding: FragmentUpdateBinding? = null
     private val binding get() = _binding!!
-    private val sharedViewModel: SharedViewModel by viewModels()
-    private val viewModel: MainViewModel by viewModels {
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val viewModel: MainViewModel by activityViewModels {
         MainViewModelFactory(
             requireActivity().application
         )
@@ -30,7 +30,7 @@ class UpdateFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentUpdateBinding.inflate(inflater, container, false)
         val view = binding.root
 

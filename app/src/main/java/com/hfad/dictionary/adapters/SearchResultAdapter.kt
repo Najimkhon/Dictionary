@@ -21,10 +21,8 @@ class SearchResultAdapter(
     }
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
-
         val currentWord = wordList[position]
         holder.layout.fillContent(currentWord, position)
-
     }
 
     override fun getItemCount(): Int {

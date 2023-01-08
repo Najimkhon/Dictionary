@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.hfad.dictionary.MainViewModelFactory
@@ -18,12 +18,12 @@ import com.hfad.dictionary.viewmodel.SharedViewModel
 
 class AddFragment : Fragment() {
 
-    val args by navArgs<AddFragmentArgs>()
+    private val args by navArgs<AddFragmentArgs>()
 
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
-    private val sharedViewModel: SharedViewModel by viewModels()
-    private val mainViewModel: MainViewModel by viewModels {
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val mainViewModel: MainViewModel by activityViewModels {
         MainViewModelFactory(
             requireActivity().application
         )

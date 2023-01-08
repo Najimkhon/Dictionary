@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hfad.dictionary.MainViewModelFactory
@@ -20,23 +20,24 @@ import jp.wasabeef.recyclerview.animators.LandingAnimator
 
 class SearchResultFragment : Fragment(), SearchResultItemLayout.OnItemClickListener {
 
-    val args by navArgs<SearchResultFragmentArgs>()
+    private val args by navArgs<SearchResultFragmentArgs>()
 
     private var _binding: FragmentSearchResultBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: MainViewModel by activityViewModels {
+        MainViewModelFactory(
+            requireActivity().application
+        )
+    }
 
-    private lateinit var viewModel: MainViewModel
     private val adapter: SearchResultAdapter by lazy { SearchResultAdapter(requireContext(), this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchResultBinding.inflate(inflater, container, false)
         val view = binding.root
-
-        val mainViewModelFactory = MainViewModelFactory(requireActivity().application)
-        viewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
 
         setupRecyclerView()
 

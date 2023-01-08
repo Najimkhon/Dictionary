@@ -6,11 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.hfad.dictionary.MainViewModelFactory
 import com.hfad.dictionary.R
 import com.hfad.dictionary.adapters.HomeAdapter
@@ -18,14 +17,14 @@ import com.hfad.dictionary.adapters.VpItemLayout
 import com.hfad.dictionary.databinding.FragmentHomeBinding
 import com.hfad.dictionary.models.card.Card
 import com.hfad.dictionary.viewmodel.MainViewModel
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
+
 
 class HomeFragment : Fragment(), SearchView.OnQueryTextListener, VpItemLayout.OnVpItemClickListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val adapter: HomeAdapter by lazy { HomeAdapter(requireContext(), this) }
-    private val viewModel: MainViewModel by viewModels {
+    private val viewModel: MainViewModel by activityViewModels {
         MainViewModelFactory(
             requireActivity().application
         )
