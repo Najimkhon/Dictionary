@@ -1,6 +1,7 @@
 package com.hfad.dictionary.adapters
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.RelativeLayout
