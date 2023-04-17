@@ -1,6 +1,8 @@
 package com.hfad.dictionary.fragments
 
 import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -18,6 +20,7 @@ import com.hfad.dictionary.adapters.SavedWordsAdapter
 import com.hfad.dictionary.adapters.SavedWordsItemLayout
 import com.hfad.dictionary.databinding.FragmentSavedWordsBinding
 import com.hfad.dictionary.models.card.Card
+import com.hfad.dictionary.utils.Constants.PRIVACY_POLICY
 import com.hfad.dictionary.utils.SwipeToDelete
 import com.hfad.dictionary.viewmodel.MainViewModel
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
@@ -88,6 +91,11 @@ class SavedWordsFragment : Fragment(), SearchView.OnQueryTextListener, SavedWord
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.privacyPolicy-> {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(PRIVACY_POLICY)
+                startActivity(intent)
+            }
             R.id.deleteAll -> deleteAll()
             R.id.statusNew -> viewModel.sortByNew.observe(this) { adapter.setCardData(it) }
             R.id.statusLearned -> viewModel.sortByLearned.observe(this) { adapter.setCardData(it) }

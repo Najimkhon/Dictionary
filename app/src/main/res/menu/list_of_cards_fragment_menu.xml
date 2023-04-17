@@ -31,6 +31,10 @@
         android:id="@+id/deleteAll"
         android:title="Delete All"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/privacyPolicy"
+        android:title="Privacy Policy"
+        app:showAsAction="never"/>
 
 
 </menu>
